@@ -8,24 +8,24 @@
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Google Fonts (Plus Jakarta Sans) -->
+  <!-- Google Fonts (Outfit) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,620;1,9..144,560&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Outfit', sans-serif;
     }
 
     body {
       min-height: 100vh;
       display: flex;
-      background-color: #ffffff;
-      color: #1a202c;
+      background-color: #f6f1e8;
+      color: #1c1915;
     }
 
     .container {
@@ -37,7 +37,7 @@
     /* Left Hero / Promo Section (Slate Blue Theme) */
     .hero-section {
       flex: 1;
-      background-color: #314c75;
+      background-color: #1b4334;
       color: #ffffff;
       padding: 3rem 4rem;
       display: flex;
@@ -130,6 +130,7 @@
       padding: 2.5rem 4rem;
       max-width: 650px;
       margin: 0 auto;
+      background: #f6f1e8;
     }
 
     /* Back to Homepage Button */
@@ -137,7 +138,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      color: #64748b;
+      color: #6f675e;
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 600;
@@ -145,7 +146,7 @@
     }
 
     .back-home:hover {
-      color: #314c75;
+      color: #c4512c;
     }
 
     .form-wrapper {
@@ -163,7 +164,7 @@
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.1em;
-      color: #64748b;
+      color: #6f675e;
       text-transform: uppercase;
       margin-bottom: 0.5rem;
     }
@@ -171,13 +172,13 @@
     .form-title {
       font-size: 2.25rem;
       font-weight: 800;
-      color: #0f172a;
+      color: #1c1915;
       letter-spacing: -0.03em;
       margin-bottom: 0.5rem;
     }
 
     .form-subtext {
-      color: #64748b;
+      color: #6f675e;
       font-size: 0.95rem;
     }
 
@@ -201,12 +202,12 @@
     }
 
     .role-card {
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
+      border: 1px solid #e6dccb;
+      border-radius: 18px;
       padding: 1rem;
       cursor: pointer;
       transition: all 0.2s ease;
-      background-color: #ffffff;
+      background-color: #fffdf8;
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -215,12 +216,12 @@
     .role-card .icon-box {
       width: 32px;
       height: 32px;
-      background-color: #f1f5f9;
+      background-color: #efe6d6;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #314c75;
+      color: #c4512c;
       font-size: 0.9rem;
       margin-bottom: 0.75rem;
     }
@@ -228,20 +229,20 @@
     .role-card h3 {
       font-size: 0.95rem;
       font-weight: 700;
-      color: #0f172a;
+      color: #1c1915;
       margin-bottom: 0.2rem;
     }
 
     .role-card p {
       font-size: 0.78rem;
-      color: #64748b;
+      color: #6f675e;
       line-height: 1.3;
     }
 
     /* Active Selected Card State */
     .role-option input[type="radio"]:checked + .role-card {
-      border: 2px solid #314c75;
-      background-color: #f0f4f9;
+      border: 2px solid #c4512c;
+      background-color: #f6f1e8;
     }
 
     .role-option input[type="radio"]:checked + .role-card .icon-box {
@@ -257,7 +258,7 @@
       display: block;
       font-size: 0.9rem;
       font-weight: 600;
-      color: #334155;
+      color: #3f3832;
       margin-bottom: 0.4rem;
     }
 
@@ -270,7 +271,7 @@
     .input-icon {
       position: absolute;
       left: 1rem;
-      color: #94a3b8;
+      color: #a3988c;
       font-size: 0.95rem;
       pointer-events: none;
     }
@@ -278,27 +279,27 @@
     .input-field input {
       width: 100%;
       padding: 0.85rem 1rem 0.85rem 2.6rem;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       border-radius: 12px;
       font-size: 0.95rem;
-      color: #1e293b;
+      color: #1c1915;
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .input-field input::placeholder {
-      color: #94a3b8;
+      color: #a3988c;
     }
 
     .input-field input:focus {
-      border-color: #314c75;
-      box-shadow: 0 0 0 3px rgba(49, 76, 117, 0.15);
+      border-color: #c4512c;
+      box-shadow: 0 0 0 3px rgba(196, 81, 44, 0.15);
     }
 
     .password-icon-right {
       position: absolute;
       right: 1rem;
-      color: #94a3b8;
+      color: #a3988c;
       font-size: 0.95rem;
       cursor: pointer;
     }
@@ -313,7 +314,7 @@
       display: flex;
       align-items: flex-start;
       gap: 0.5rem;
-      color: #475569;
+      color: #5c534b;
       cursor: pointer;
       line-height: 1.4;
     }
@@ -322,14 +323,14 @@
       width: 16px;
       height: 16px;
       border-radius: 4px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #d9ccb8;
       cursor: pointer;
       margin-top: 2px;
-      accent-color: #314c75;
+      accent-color: #c4512c;
     }
 
     .terms-label a {
-      color: #314c75;
+      color: #c4512c;
       text-decoration: none;
       font-weight: 700;
     }
@@ -342,10 +343,10 @@
     .btn-submit {
       width: 100%;  
       padding: 0.9rem;
-      background-color: #2866c4;
+      background-color: #c4512c;
       color: #ffffff;
       border: none;
-      border-radius: 12px;
+      border-radius: 999px;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
@@ -353,12 +354,12 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      box-shadow: 0 4px 12px rgba(49, 76, 117, 0.2);
+      box-shadow: 0 4px 12px rgba(196, 81, 44, 0.2);
       transition: background-color 0.2s, transform 0.1s;
     }
 
     .btn-submit:hover {
-      background-color: #263c5d;
+      background-color: #9a3b1b;
     }
 
     .btn-submit:active {
@@ -370,11 +371,11 @@
       text-align: center;
       margin-top: 1.5rem;
       font-size: 0.9rem;
-      color: #64748b;
+      color: #6f675e;
     }
 
     .switch-page a {
-      color: #314c75;
+      color: #c4512c;
       text-decoration: none;
       font-weight: 700;
     }
@@ -387,7 +388,7 @@
     .form-footer {
       text-align: center;
       font-size: 0.8rem;
-      color: #94a3b8;
+      color: #a3988c;
     }
 
     /* Responsive Adjustments */
@@ -409,6 +410,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="css/theme.css"/>
 </head>
 <body>
 
@@ -417,15 +419,15 @@
     <div class="hero-section">
       <div class="hero-header">
         <a href="index.html" class="logo">
-          <span class="logo-text">DormFinder</span>
+          <span class="logo-text">Dorm<span class="gold">Finder</span></span>
         </a>
       </div>
 
       <div class="hero-content">
-        <p class="hero-subtitle">A better way to find home</p>
-        <h1 class="hero-title">Your next chapter starts here.</h1>
+        <p class="hero-subtitle">Join the campus housing network</p>
+        <h1 class="hero-title">Create your place in Minglanilla.</h1>
         <p class="hero-description">
-          Discover trusted student housing near campus, connect with verified property owners, and move in with confidence.
+          Students find verified rooms near campus. Owners list boarding houses and manage bookings — all in one warm, simple system.
         </p>
       </div>
 
@@ -456,6 +458,7 @@
         </div>
 
         <form id="signup-form">
+          <div class="form-alert" id="formAlert" role="alert"></div>
           <!-- Role Selector -->
           <div class="role-selection">
             <label class="role-option">
@@ -552,6 +555,12 @@
       }
     });
 
+    function showFormAlert(msg, type) {
+      const el = document.getElementById('formAlert');
+      el.className = 'form-alert show ' + (type || 'error');
+      el.textContent = msg;
+    }
+
     document.getElementById('signup-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       
@@ -559,6 +568,10 @@
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       const role = document.querySelector('input[name="account_type"]:checked').value;
+      const btn = this.querySelector('.btn-submit');
+      const original = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = 'Creating account…';
 
       try {
         const response = await fetch('/api/signup', {
@@ -570,14 +583,22 @@
         const data = await response.json();
         
         if (response.ok && data.success) {
-          alert('Account created successfully! Please sign in.');
-          window.location.href = 'signin.html';
+          if (data.user) {
+            localStorage.setItem('df_user', JSON.stringify(data.user));
+            window.location.href = role === 'owner' ? 'owner-dashboard.html' : 'student-dashboard.html';
+          } else {
+            window.location.href = 'signin.html?new=1';
+          }
         } else {
-          alert(data.message || 'Error creating account.');
+          showFormAlert(data.message || 'Error creating account.', 'error');
+          btn.disabled = false;
+          btn.innerHTML = original;
         }
       } catch (err) {
         console.error('Error:', err);
-        alert('Could not connect to the server.');
+        showFormAlert('Could not connect to the server.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = original;
       }
     });
   </script>

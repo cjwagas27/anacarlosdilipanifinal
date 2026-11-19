@@ -7,19 +7,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,620;1,9..144,560&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Outfit', sans-serif;
     }
 
     body {
-      background-color: #f8fafc;
-      color: #1e293b;
+      background-color: #f6f1e8;
+      color: #1c1915;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -28,7 +28,7 @@
     /* Top Navbar */
     .navbar {
       height: 70px;
-      background: #1b2d47;
+      background: #1b4334;
       color: #ffffff;
       display: flex;
       align-items: center;
@@ -51,9 +51,10 @@
 
     .brand-mark {
       width: 34px; height: 34px;
-      background: #314c75;
-      border-radius: 8px;
+      background: rgba(255,253,248,0.12);
+      border-radius: 12px 12px 4px 12px;
       display: flex; align-items: center; justify-content: center;
+      box-shadow: inset 0 -8px 0 #c4512c;
     }
 
     .nav-auth-links {
@@ -66,7 +67,7 @@
       border: 1px solid rgba(255,255,255,0.2);
       color: #ffffff;
       padding: 0.5rem 1.1rem;
-      border-radius: 8px;
+      border-radius: 999px;
       font-size: 0.85rem;
       font-weight: 700;
       text-decoration: none;
@@ -75,21 +76,21 @@
     .btn-nav-login:hover { background: rgba(255,255,255,0.1); }
 
     .btn-nav-signup {
-      background: #2563eb;
+      background: #c4512c;
       border: none;
       color: #ffffff;
       padding: 0.5rem 1.1rem;
-      border-radius: 8px;
+      border-radius: 999px;
       font-size: 0.85rem;
       font-weight: 700;
       text-decoration: none;
       transition: background 0.2s;
     }
-    .btn-nav-signup:hover { background: #1d4ed8; }
+    .btn-nav-signup:hover { background: #9a3b1b; }
 
     /* Hero Banner */
     .hero-banner {
-      background: #18283f;
+      background: #143328;
       padding: 3rem 2rem 2.5rem 2rem;
       text-align: center;
       color: #ffffff;
@@ -101,7 +102,7 @@
       margin-bottom: 8px;
       letter-spacing: -0.02em;
     }
-    .hero-title span { color: #f59e0b; }
+    .hero-title span { color: #e7b79a; font-style: italic; }
 
     .hero-subtitle {
       font-size: 0.95rem;
@@ -127,31 +128,31 @@
       flex: 1;
       padding-right: 15px;
     }
-    .sb-input-group i { color: #64748b; font-size: 1rem; }
+    .sb-input-group i { color: #6f675e; font-size: 1rem; }
     .sb-input-group input {
       border: none;
       background: transparent;
       outline: none;
       width: 100%;
       font-size: 0.95rem;
-      color: #0f172a;
+      color: #1c1915;
       font-weight: 500;
     }
 
-    .sb-divider { width: 1px; height: 28px; background: #cbd5e1; }
+    .sb-divider { width: 1px; height: 28px; background: #d9ccb8; }
     .sb-select-group { padding: 0 15px; }
     .sb-select-group select {
       border: none;
       background: transparent;
       outline: none;
       font-size: 0.9rem;
-      color: #475569;
+      color: #5c534b;
       font-weight: 600;
       cursor: pointer;
     }
 
     .sb-btn-search {
-      background: #2563eb;
+      background: #c4512c;
       color: #ffffff;
       border: none;
       padding: 0.75rem 2rem;
@@ -161,7 +162,7 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .sb-btn-search:hover { background: #1d4ed8; }
+    .sb-btn-search:hover { background: #9a3b1b; }
 
     .search-tags-row {
       display: flex;
@@ -203,9 +204,9 @@
     }
 
     .filters-sidebar {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
+      background: #fffdf8;
+      border: 1px solid #e6dccb;
+      border-radius: 20px;
       padding: 1.5rem;
       height: fit-content;
       position: sticky;
@@ -218,14 +219,14 @@
       justify-content: space-between;
       margin-bottom: 1.25rem;
       padding-bottom: 0.75rem;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid #efe6d6;
     }
-    .filters-header-row h3 { font-size: 1rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 8px; }
-    .reset-filters-btn { font-size: 0.78rem; font-weight: 700; color: #2563eb; background: none; border: none; cursor: pointer; }
+    .filters-header-row h3 { font-size: 1rem; font-weight: 800; color: #1c1915; display: flex; align-items: center; gap: 8px; }
+    .reset-filters-btn { font-size: 0.78rem; font-weight: 700; color: #c4512c; background: none; border: none; cursor: pointer; }
     .reset-filters-btn:hover { text-decoration: underline; }
 
     .filter-group { margin-bottom: 1.5rem; }
-    .filter-group-title { font-size: 0.82rem; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+    .filter-group-title { font-size: 0.82rem; font-weight: 800; color: #1c1915; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
 
     .price-inputs-row {
       display: flex;
@@ -234,7 +235,7 @@
     }
     .price-input-box {
       flex: 1;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #d9ccb8;
       border-radius: 8px;
       padding: 0.5rem 0.75rem;
       font-size: 0.85rem;
@@ -248,11 +249,11 @@
       gap: 10px;
       font-size: 0.85rem;
       font-weight: 600;
-      color: #334155;
+      color: #3f3832;
       margin-bottom: 8px;
       cursor: pointer;
     }
-    .checkbox-label input { width: 16px; height: 16px; accent-color: #2563eb; cursor: pointer; border-radius: 4px; }
+    .checkbox-label input { width: 16px; height: 16px; accent-color: #c4512c; cursor: pointer; border-radius: 4px; }
 
     /* Results Area */
     .results-topbar {
@@ -261,14 +262,14 @@
       justify-content: space-between;
       margin-bottom: 1.5rem;
     }
-    .results-count-text { font-size: 1.05rem; font-weight: 800; color: #0f172a; }
+    .results-count-text { font-size: 1.05rem; font-weight: 800; color: #1c1915; }
     .sort-select-box {
-      border: 1px solid #cbd5e1;
+      border: 1px solid #d9ccb8;
       border-radius: 8px;
       padding: 0.5rem 1rem;
       font-size: 0.85rem;
       font-weight: 600;
-      color: #0f172a;
+      color: #1c1915;
       background: #ffffff;
       outline: none;
       cursor: pointer;
@@ -281,9 +282,9 @@
     }
 
     .dorm-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
+      background: #fffdf8;
+      border: 1px solid #e6dccb;
+      border-radius: 20px;
       overflow: hidden;
       transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
@@ -305,7 +306,7 @@
     .dorm-status-badge {
       position: absolute;
       top: 12px; left: 12px;
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(28, 25, 21, 0.75);
       backdrop-filter: blur(4px);
       color: #ffffff;
       padding: 4px 10px;
@@ -322,7 +323,7 @@
       border-radius: 50%;
       border: none;
       display: flex; align-items: center; justify-content: center;
-      color: #64748b;
+      color: #6f675e;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
@@ -342,22 +343,22 @@
       justify-content: space-between;
       margin-bottom: 6px;
     }
-    .dorm-name { font-size: 1rem; font-weight: 800; color: #0f172a; }
-    .dorm-rating { font-size: 0.82rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 3px; }
+    .dorm-name { font-size: 1rem; font-weight: 800; color: #1c1915; }
+    .dorm-rating { font-size: 0.82rem; font-weight: 700; color: #1c1915; display: flex; align-items: center; gap: 3px; }
     .dorm-rating i { color: #f59e0b; font-size: 0.75rem; }
-    .dorm-location { font-size: 0.82rem; color: #64748b; margin-bottom: 1rem; }
+    .dorm-location { font-size: 0.82rem; color: #6f675e; margin-bottom: 1rem; }
 
     .dorm-footer-info {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid #f1f5f9;
+      border-top: 1px solid #efe6d6;
       padding-top: 0.85rem;
       font-size: 0.82rem;
-      color: #64748b;
+      color: #6f675e;
     }
-    .dorm-price { font-size: 1rem; font-weight: 800; color: #0f172a; }
-    .dorm-price span { font-size: 0.75rem; font-weight: 500; color: #64748b; }
+    .dorm-price { font-size: 1rem; font-weight: 800; color: #1c1915; }
+    .dorm-price span { font-size: 0.75rem; font-weight: 500; color: #6f675e; }
 
     /* DETAIL VIEW TAB */
     #tab-dorm-detail {
@@ -370,9 +371,9 @@
     #tab-dorm-detail.active { display: block; }
 
     .btn-back-browse {
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
-      color: #0f172a;
+      background: #f6f1e8;
+      border: 1px solid #d9ccb8;
+      color: #1c1915;
       padding: 0.55rem 1.2rem;
       border-radius: 12px;
       font-size: 0.85rem;
@@ -397,7 +398,7 @@
     .detail-sub-img { height: 164px; background-size: cover; background-position: center; border-radius: 14px; position: relative; }
     .detail-more-overlay {
       position: absolute; inset: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(28, 25, 21, 0.6);
       color: #ffffff;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       font-size: 0.85rem; font-weight: 700;
@@ -409,7 +410,7 @@
       font-size: 0.78rem; font-weight: 800;
       padding: 4px 10px; border-radius: 6px;
     }
-    .room-card-option.taken { opacity: 0.5; cursor: not-allowed; background: #f8fafc; }
+    .room-card-option.taken { opacity: 0.5; cursor: not-allowed; background: #f6f1e8; }
     .room-status.taken { color: #dc2626; font-size: 0.7rem; font-weight: 700; margin-top: 4px; }
 
     .detail-layout-grid {
@@ -419,29 +420,29 @@
     }
 
     .detail-left-col { display: flex; flex-direction: column; gap: 1.75rem; }
-    .detail-title-row h1 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
+    .detail-title-row h1 { font-size: 2rem; font-weight: 800; color: #1c1915; margin-bottom: 6px; }
 
     .detail-badges-row {
       display: flex;
       align-items: center;
       gap: 12px;
       font-size: 0.85rem;
-      color: #64748b;
+      color: #6f675e;
       font-weight: 600;
     }
-    .badge-type { background: #eff6ff; color: #2563eb; padding: 4px 10px; border-radius: 6px; font-weight: 700; }
-    .detail-desc-box { font-size: 0.95rem; color: #334155; line-height: 1.5; }
-    .detail-section-title { font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 8px; }
+    .badge-type { background: #fff6ee; color: #c4512c; padding: 4px 10px; border-radius: 6px; font-weight: 700; }
+    .detail-desc-box { font-size: 0.95rem; color: #3f3832; line-height: 1.5; }
+    .detail-section-title { font-size: 1.1rem; font-weight: 800; color: #1c1915; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 8px; }
 
     .detail-amenities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .detail-amenity-pill {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       border-radius: 10px;
       padding: 0.7rem 1rem;
       font-size: 0.85rem;
       font-weight: 600;
-      color: #334155;
+      color: #3f3832;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -461,7 +462,7 @@
     .detail-map-box {
       border-radius: 14px;
       overflow: hidden;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       height: 280px;
       width: 100%;
       position: relative;
@@ -471,8 +472,8 @@
       position: absolute;
       bottom: 12px; right: 12px;
       background: #ffffff;
-      color: #0f172a;
-      border: 1px solid #cbd5e1;
+      color: #1c1915;
+      border: 1px solid #d9ccb8;
       padding: 6px 12px;
       border-radius: 8px;
       font-size: 0.78rem;
@@ -486,7 +487,7 @@
 
     .owner-contact-card {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       border-radius: 14px;
       padding: 1.25rem;
       display: flex;
@@ -494,9 +495,9 @@
       justify-content: space-between;
     }
     .btn-msg-owner {
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
-      color: #0f172a;
+      background: #f6f1e8;
+      border: 1px solid #d9ccb8;
+      color: #1c1915;
       padding: 0.65rem 1.25rem;
       border-radius: 10px;
       font-size: 0.85rem;
@@ -506,12 +507,12 @@
       align-items: center;
       gap: 6px;
     }
-    .btn-msg-owner:hover { background: #f1f5f9; }
+    .btn-msg-owner:hover { background: #efe6d6; }
 
     /* BOOKING CARD */
     .detail-booking-card {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       border-radius: 20px;
       padding: 1.75rem;
       box-shadow: 0 10px 30px rgba(0,0,0,0.04);
@@ -520,8 +521,8 @@
       top: 95px;
     }
     .booking-price-header { margin-bottom: 1.25rem; }
-    .booking-price-val { font-size: 1.8rem; font-weight: 800; color: #0f172a; }
-    .booking-price-val span { font-size: 0.85rem; font-weight: 500; color: #64748b; }
+    .booking-price-val { font-size: 1.8rem; font-weight: 800; color: #1c1915; }
+    .booking-price-val span { font-size: 0.85rem; font-weight: 500; color: #6f675e; }
 
     .rooms-selector-grid {
       display: grid;
@@ -532,24 +533,24 @@
       overflow-y: auto;
     }
     .room-card-option {
-      border: 2px solid #e2e8f0;
+      border: 2px solid #e6dccb;
       border-radius: 12px;
       padding: 0.85rem;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
     }
-    .room-card-option.selected { border-color: #2563eb; background: #eff6ff; }
-    .room-title { font-size: 0.85rem; font-weight: 800; color: #0f172a; }
-    .room-price { font-size: 0.8rem; color: #2563eb; font-weight: 700; margin-top: 2px; }
+    .room-card-option.selected { border-color: #c4512c; background: #fff6ee; }
+    .room-title { font-size: 0.85rem; font-weight: 800; color: #1c1915; }
+    .room-price { font-size: 0.8rem; color: #c4512c; font-weight: 700; margin-top: 2px; }
     .room-status.avail { color: #16a34a; font-size: 0.7rem; font-weight: 700; margin-top: 4px; }
 
     .booking-input-group { margin-bottom: 1rem; }
-    .booking-input-group label { display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+    .booking-input-group label { display: block; font-size: 0.82rem; font-weight: 700; color: #1c1915; margin-bottom: 6px; }
     .booking-input-group input,
     .booking-input-group textarea {
       width: 100%;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #d9ccb8;
       border-radius: 10px;
       padding: 0.75rem;
       font-size: 0.88rem;
@@ -558,7 +559,7 @@
 
     .btn-submit-booking {
       width: 100%;
-      background: #2563eb;
+      background: #c4512c;
       color: #ffffff;
       border: none;
       padding: 0.9rem;
@@ -569,13 +570,13 @@
       margin-bottom: 8px;
       transition: background 0.2s;
     }
-    .btn-submit-booking:hover { background: #1d4ed8; }
+    .btn-submit-booking:hover { background: #9a3b1b; }
 
     .btn-contact-owner {
       width: 100%;
       background: #ffffff;
-      border: 1px solid #cbd5e1;
-      color: #0f172a;
+      border: 1px solid #d9ccb8;
+      color: #1c1915;
       padding: 0.75rem;
       border-radius: 12px;
       font-size: 0.88rem;
@@ -587,7 +588,7 @@
     .modal-backdrop {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(28, 25, 21, 0.6);
       backdrop-filter: blur(4px);
       display: none;
       align-items: center;
@@ -607,14 +608,14 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
     .modal-icon-circle {
-      width: 60px; height: 60px; background: #eff6ff; color: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem auto;
+      width: 60px; height: 60px; background: #fff6ee; color: #c4512c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem auto;
     }
-    .modal-card h3 { font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
-    .modal-card p { font-size: 0.9rem; color: #64748b; margin-bottom: 1.5rem; line-height: 1.5; }
+    .modal-card h3 { font-size: 1.25rem; font-weight: 800; color: #1c1915; margin-bottom: 8px; }
+    .modal-card p { font-size: 0.9rem; color: #6f675e; margin-bottom: 1.5rem; line-height: 1.5; }
     .modal-actions { display: flex; gap: 10px; }
     .modal-actions a { flex: 1; padding: 0.75rem; border-radius: 10px; font-weight: 700; font-size: 0.9rem; text-decoration: none; text-align: center; }
-    .btn-modal-login { background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; }
-    .btn-modal-signup { background: #2563eb; color: #ffffff; }
+    .btn-modal-login { background: #efe6d6; color: #1c1915; border: 1px solid #d9ccb8; }
+    .btn-modal-signup { background: #c4512c; color: #ffffff; }
 
     @media (max-width: 1024px) {
       .main-container { grid-template-columns: 1fr; }
@@ -626,108 +627,108 @@
   <style>
     /* ── REVIEWS & RECOMMENDATIONS ───────────────────────── */
     .rv-section { margin-top: 0.5rem; }
-    .rv-tabs { display: flex; gap: 1.75rem; border-bottom: 1px solid #e2e8f0; margin-bottom: 1.25rem; }
+    .rv-tabs { display: flex; gap: 1.75rem; border-bottom: 1px solid #e6dccb; margin-bottom: 1.25rem; }
     .rv-tab {
       background: none; border: none; cursor: pointer; padding: 0 0 0.8rem; margin-bottom: -1px;
-      font: 700 0.95rem 'Plus Jakarta Sans', sans-serif; color: #475569;
+      font: 700 0.95rem 'Outfit', sans-serif; color: #5c534b;
       border-bottom: 3px solid transparent;
     }
-    .rv-tab:hover { color: #0f172a; }
-    .rv-tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+    .rv-tab:hover { color: #1c1915; }
+    .rv-tab.active { color: #c4512c; border-bottom-color: #c4512c; }
     .rv-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .rv-h { font-size: 1.15rem; font-weight: 800; color: #0f172a; }
+    .rv-h { font-size: 1.15rem; font-weight: 800; color: #1c1915; }
     .rv-sort {
-      padding: 0.5rem 0.8rem; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff;
-      font: 600 0.82rem 'Plus Jakarta Sans', sans-serif; color: #334155; cursor: pointer; outline: none;
+      padding: 0.5rem 0.8rem; border: 1px solid #e6dccb; border-radius: 10px; background: #ffffff;
+      font: 600 0.82rem 'Outfit', sans-serif; color: #3f3832; cursor: pointer; outline: none;
     }
     .rv-summary {
       display: flex; gap: 1.75rem; align-items: center; flex-wrap: wrap;
-      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+      background: #f6f1e8; border: 1px solid #e6dccb; border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
     }
     .rv-score { text-align: center; min-width: 120px; }
-    .rv-score .n { font-size: 2.4rem; font-weight: 800; color: #0f172a; line-height: 1; }
-    .rv-score .n span { font-size: 1rem; font-weight: 600; color: #94a3b8; }
-    .rv-score .sub { font-size: 0.78rem; color: #64748b; margin-top: 6px; font-weight: 600; }
+    .rv-score .n { font-size: 2.4rem; font-weight: 800; color: #1c1915; line-height: 1; }
+    .rv-score .n span { font-size: 1rem; font-weight: 600; color: #a3988c; }
+    .rv-score .sub { font-size: 0.78rem; color: #6f675e; margin-top: 6px; font-weight: 600; }
     .rv-score .rec { font-size: 0.78rem; color: #15803d; font-weight: 800; margin-top: 3px; }
     .rv-stars { display: inline-flex; gap: 2px; font-size: 1rem; letter-spacing: 0; }
-    .rv-stars span { color: #e2e8f0; }
+    .rv-stars span { color: #e6dccb; }
     .rv-stars span.on { color: #f59e0b; }
     .rv-stars.big { font-size: 1.3rem; margin-top: 6px; }
     .rv-chips { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
     .rv-chip {
-      background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.45rem 0.85rem; cursor: pointer;
-      font: 600 0.82rem 'Plus Jakarta Sans', sans-serif; color: #475569; transition: all 0.15s;
+      background: #ffffff; border: 1px solid #d9ccb8; border-radius: 8px; padding: 0.45rem 0.85rem; cursor: pointer;
+      font: 600 0.82rem 'Outfit', sans-serif; color: #5c534b; transition: all 0.15s;
     }
-    .rv-chip:hover { border-color: #2563eb; color: #2563eb; }
-    .rv-chip.active { border-color: #2563eb; background: #eff6ff; color: #2563eb; }
+    .rv-chip:hover { border-color: #c4512c; color: #c4512c; }
+    .rv-chip.active { border-color: #c4512c; background: #fff6ee; color: #c4512c; }
     .rv-chip.zero { opacity: 0.55; }
-    .rv-summary.empty { color: #64748b; font-size: 0.9rem; }
+    .rv-summary.empty { color: #6f675e; font-size: 0.9rem; }
 
-    .rv-form-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.25rem; margin-bottom: 1.5rem; }
-    .rv-form-title { font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-bottom: 0.6rem; }
+    .rv-form-card { background: #ffffff; border: 1px solid #e6dccb; border-radius: 16px; padding: 1.25rem; margin-bottom: 1.5rem; }
+    .rv-form-title { font-size: 0.95rem; font-weight: 800; color: #1c1915; margin-bottom: 0.6rem; }
     .rv-star-row { display: flex; align-items: center; gap: 12px; margin-bottom: 0.8rem; }
     .rv-star-input { display: inline-flex; gap: 4px; }
-    .rv-star-input button { background: none; border: none; cursor: pointer; font-size: 1.8rem; line-height: 1; color: #e2e8f0; padding: 0; transition: transform 0.1s, color 0.1s; }
+    .rv-star-input button { background: none; border: none; cursor: pointer; font-size: 1.8rem; line-height: 1; color: #e6dccb; padding: 0; transition: transform 0.1s, color 0.1s; }
     .rv-star-input button.on { color: #f59e0b; }
     .rv-star-input button:hover { transform: scale(1.15); }
-    #rvStarLabel { font-size: 0.82rem; font-weight: 700; color: #64748b; }
+    #rvStarLabel { font-size: 0.82rem; font-weight: 700; color: #6f675e; }
     .rv-form-card textarea {
       width: 100%; min-height: 88px; resize: vertical; padding: 0.8rem 0.95rem;
-      border: 1px solid #e2e8f0; border-radius: 12px; outline: none;
-      font: 500 0.9rem 'Plus Jakarta Sans', sans-serif; color: #1e293b;
+      border: 1px solid #e6dccb; border-radius: 12px; outline: none;
+      font: 500 0.9rem 'Outfit', sans-serif; color: #1c1915;
     }
-    .rv-form-card textarea:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); }
+    .rv-form-card textarea:focus { border-color: #c4512c; box-shadow: 0 0 0 3px rgba(196, 81, 44, 0.12); }
     .rv-form-bottom { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: 0.8rem; }
-    .rv-rec-check { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; color: #334155; cursor: pointer; }
-    .rv-rec-check input { width: 16px; height: 16px; accent-color: #2563eb; cursor: pointer; }
+    .rv-rec-check { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; color: #3f3832; cursor: pointer; }
+    .rv-rec-check input { width: 16px; height: 16px; accent-color: #c4512c; cursor: pointer; }
     .rv-form-actions { display: flex; gap: 8px; }
-    .rv-submit { background: #2563eb; color: #ffffff; border: none; border-radius: 10px; padding: 0.65rem 1.3rem; font: 700 0.86rem 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
-    .rv-submit:hover { background: #1d4ed8; }
-    .rv-submit:disabled { background: #94a3b8; cursor: not-allowed; }
-    .rv-del { background: #ffffff; color: #dc2626; border: 1px solid #fecaca; border-radius: 10px; padding: 0.65rem 1.1rem; font: 700 0.86rem 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
-    .rv-note { display: flex; gap: 10px; align-items: center; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; font-size: 0.88rem; color: #475569; }
-    .rv-note a { color: #2563eb; font-weight: 800; text-decoration: none; }
+    .rv-submit { background: #c4512c; color: #ffffff; border: none; border-radius: 10px; padding: 0.65rem 1.3rem; font: 700 0.86rem 'Outfit', sans-serif; cursor: pointer; }
+    .rv-submit:hover { background: #9a3b1b; }
+    .rv-submit:disabled { background: #a3988c; cursor: not-allowed; }
+    .rv-del { background: #ffffff; color: #dc2626; border: 1px solid #fecaca; border-radius: 10px; padding: 0.65rem 1.1rem; font: 700 0.86rem 'Outfit', sans-serif; cursor: pointer; }
+    .rv-note { display: flex; gap: 10px; align-items: center; background: #f6f1e8; border: 1px dashed #d9ccb8; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; font-size: 0.88rem; color: #5c534b; }
+    .rv-note a { color: #c4512c; font-weight: 800; text-decoration: none; }
 
-    .rv-item { display: flex; gap: 0.9rem; padding: 1.1rem 0; border-bottom: 1px solid #f1f5f9; }
+    .rv-item { display: flex; gap: 0.9rem; padding: 1.1rem 0; border-bottom: 1px solid #efe6d6; }
     .rv-item:last-child { border-bottom: none; }
     .rv-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.95rem; }
     .rv-body { flex: 1; min-width: 0; }
     .rv-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
-    .rv-head b { font-size: 0.9rem; color: #0f172a; font-weight: 800; }
-    .rv-time { font-size: 0.76rem; color: #94a3b8; font-weight: 600; }
+    .rv-head b { font-size: 0.9rem; color: #1c1915; font-weight: 800; }
+    .rv-time { font-size: 0.76rem; color: #a3988c; font-weight: 600; }
     .rv-tag { font-size: 0.7rem; font-weight: 800; color: #15803d; background: #dcfce7; padding: 2px 8px; border-radius: 20px; }
-    .rv-text { font-size: 0.9rem; line-height: 1.55; color: #334155; margin-top: 6px; white-space: pre-line; word-break: break-word; }
-    .rv-rec-tag { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 0.78rem; font-weight: 700; color: #2563eb; }
-    .rv-rec-tag.no { color: #94a3b8; }
+    .rv-text { font-size: 0.9rem; line-height: 1.55; color: #3f3832; margin-top: 6px; white-space: pre-line; word-break: break-word; }
+    .rv-rec-tag { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 0.78rem; font-weight: 700; color: #c4512c; }
+    .rv-rec-tag.no { color: #a3988c; }
     .rv-own { margin-top: 8px; font-size: 0.78rem; }
-    .rv-own button { background: none; border: none; cursor: pointer; padding: 0; font: 700 0.78rem 'Plus Jakarta Sans', sans-serif; color: #64748b; }
-    .rv-own button:hover { color: #2563eb; }
+    .rv-own button { background: none; border: none; cursor: pointer; padding: 0; font: 700 0.78rem 'Outfit', sans-serif; color: #6f675e; }
+    .rv-own button:hover { color: #c4512c; }
     .rv-own button.d:hover { color: #dc2626; }
-    .rv-more { display: block; margin: 0.75rem auto 0; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 0.6rem 1.4rem; font: 700 0.85rem 'Plus Jakarta Sans', sans-serif; color: #334155; cursor: pointer; }
-    .rv-more:hover { border-color: #2563eb; color: #2563eb; }
-    .rv-loading, .rv-none { text-align: center; padding: 2rem 1rem; color: #64748b; font-size: 0.9rem; }
+    .rv-more { display: block; margin: 0.75rem auto 0; background: #ffffff; border: 1px solid #d9ccb8; border-radius: 10px; padding: 0.6rem 1.4rem; font: 700 0.85rem 'Outfit', sans-serif; color: #3f3832; cursor: pointer; }
+    .rv-more:hover { border-color: #c4512c; color: #c4512c; }
+    .rv-loading, .rv-none { text-align: center; padding: 2rem 1rem; color: #6f675e; font-size: 0.9rem; }
 
-    .rec-intro { font-size: 0.9rem; color: #64748b; margin-bottom: 1rem; }
+    .rec-intro { font-size: 0.9rem; color: #6f675e; margin-bottom: 1rem; }
     .rec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-    .rec-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
-    .rec-card:hover { border-color: #2563eb; box-shadow: 0 8px 22px rgba(37, 99, 235, 0.12); transform: translateY(-2px); }
-    .rec-img { position: relative; height: 130px; background-size: cover; background-position: center; background-color: #e2e8f0; }
+    .rec-card { background: #ffffff; border: 1px solid #e6dccb; border-radius: 16px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
+    .rec-card:hover { border-color: #c4512c; box-shadow: 0 8px 22px rgba(196, 81, 44, 0.12); transform: translateY(-2px); }
+    .rec-img { position: relative; height: 130px; background-size: cover; background-position: center; background-color: #e6dccb; }
     .rec-body { padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 6px; flex: 1; }
     .rec-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .rec-name { font-weight: 800; color: #0f172a; font-size: 0.95rem; }
-    .rec-rate { font-size: 0.8rem; font-weight: 800; color: #0f172a; white-space: nowrap; }
+    .rec-name { font-weight: 800; color: #1c1915; font-size: 0.95rem; }
+    .rec-rate { font-size: 0.8rem; font-weight: 800; color: #1c1915; white-space: nowrap; }
     .rec-rate i { color: #f59e0b; font-size: 0.72rem; }
-    .rec-loc { font-size: 0.8rem; color: #64748b; }
+    .rec-loc { font-size: 0.8rem; color: #6f675e; }
     .rec-reasons { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
-    .rec-reasons span { background: #eff6ff; color: #2563eb; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; }
-    .rec-price { margin-top: auto; padding-top: 6px; font-weight: 800; color: #0f172a; font-size: 1rem; }
-    .rec-price small { font-size: 0.75rem; font-weight: 500; color: #64748b; }
+    .rec-reasons span { background: #fff6ee; color: #c4512c; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; }
+    .rec-price { margin-top: auto; padding-top: 6px; font-weight: 800; color: #1c1915; font-size: 1rem; }
+    .rec-price small { font-size: 0.75rem; font-weight: 500; color: #6f675e; }
     @media (max-width: 800px) { .rec-grid { grid-template-columns: 1fr; } }
 
-    .rv-form-card textarea { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .rv-form-card textarea { font-family: 'Outfit', sans-serif; }
     .df-toast {
       position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
-      background: #0f172a; color: #fff; padding: 0.7rem 1.1rem; border-radius: 10px;
+      background: #1c1915; color: #fff; padding: 0.7rem 1.1rem; border-radius: 10px;
       font-size: 0.85rem; font-weight: 600; z-index: 1200;
       opacity: 0; pointer-events: none; transition: opacity 0.25s;
     }
@@ -736,7 +737,7 @@
     /* ── Leaflet map + pin (same look as the homepage map) ── */
     .df-pin {
       width: 30px; height: 30px;
-      background: #16a34a;
+      background: #c4512c;
       border: 2px solid #ffffff;
       border-radius: 50% 50% 50% 0;
       transform: rotate(-45deg);
@@ -750,9 +751,10 @@
       border-radius: 50%;
       top: 8px; left: 8px;
     }
-    .leaflet-container { font-family: 'Plus Jakarta Sans', sans-serif; z-index: 0; }
+    .leaflet-container { font-family: 'Outfit', sans-serif; z-index: 0; }
     .btn-open-maps, .map-open-btn { z-index: 1000; }
   </style>
+  <link rel="stylesheet" href="css/theme.css"/>
 </head>
 <body>
 
@@ -762,7 +764,7 @@
       <div class="brand-mark">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M12 2L3 9v13h6v-7h6v7h6V9z"/></svg>
       </div>
-      DormFinder
+      Dorm<span class="gold">Finder</span>
     </a>
     <div class="nav-auth-links" id="navAuthLinks">
       <a href="signin.html" class="btn-nav-login">Sign In</a>
@@ -829,7 +831,7 @@
           <div class="filter-group-title">Price Range (₱/Month)</div>
           <div class="price-inputs-row">
             <input type="number" id="minPriceInput" class="price-input-box" placeholder="Min" oninput="applyFilters()"/>
-            <span style="color: #64748b;">—</span>
+            <span style="color: #6f675e;">—</span>
             <input type="number" id="maxPriceInput" class="price-input-box" placeholder="Max" oninput="applyFilters()"/>
           </div>
         </div>
@@ -919,10 +921,10 @@
           <div class="detail-section-title">Property Owner</div>
           <div class="owner-contact-card">
             <div style="display: flex; align-items: center; gap: 12px;">
-              <div id="detOwnerInitials" style="width: 44px; height: 44px; background: #1b2d47; color: #ffffff; font-weight: 800; border-radius: 50%; display: flex; align-items: center; justify-content: center;">PO</div>
+              <div id="detOwnerInitials" style="width: 44px; height: 44px; background: #1b4334; color: #ffffff; font-weight: 800; border-radius: 50%; display: flex; align-items: center; justify-content: center;">PO</div>
               <div>
-                <h4 id="detOwnerName" style="font-size: 0.95rem; font-weight: 800; color: #0f172a;">Property Owner</h4>
-                <p style="font-size: 0.78rem; color: #64748b;" id="detOwnerEmail">owner@dormfinder.com</p>
+                <h4 id="detOwnerName" style="font-size: 0.95rem; font-weight: 800; color: #1c1915;">Property Owner</h4>
+                <p style="font-size: 0.78rem; color: #6f675e;" id="detOwnerEmail">owner@dormfinder.com</p>
               </div>
             </div>
             <button class="btn-msg-owner" onclick="handleProtectedAction('message')"><i class="fa-regular fa-message"></i> Message</button>
@@ -961,8 +963,15 @@
           <span class="detail-slots-badge" id="detPropSlotsBadge">1 slot left</span>
         </div>
 
-        <label style="font-size:0.82rem; font-weight:800; color:#0f172a; display:block; margin-bottom:8px;">SELECT A ROOM</label>
-        <div class="rooms-selector-grid" id="detRoomsGrid"></div>
+        <label style="font-size:0.82rem; font-weight:800; color:#1c1915; display:block; margin-bottom:6px;">Choose a vacant room</label>
+        <p id="detRoomsSummary" style="font-size:0.75rem;color:#6f675e;margin:0 0 8px;line-height:1.4;">Loading rooms…</p>
+        <select id="detRoomSelect" onchange="onBrowseRoomSelectChange()" style="width:100%;border:1px solid #d9ccb8;border-radius:10px;padding:0.75rem;font-size:0.92rem;font-weight:700;color:#1c1915;background:#fff;margin-bottom:8px;font-family:inherit;"></select>
+        <div id="detSelectedRoomLabel" style="font-size:0.8rem;font-weight:700;color:#c4512c;margin:0 0 0.75rem;">No room selected yet</div>
+        <details style="margin-bottom:1rem;">
+          <summary style="cursor:pointer;font-size:0.78rem;font-weight:700;color:#6f675e;">See all room statuses</summary>
+          <div id="detRoomsStatusList" style="margin-top:8px;font-size:0.78rem;color:#5c534b;line-height:1.6;"></div>
+        </details>
+        <div class="rooms-selector-grid" id="detRoomsGrid" style="display:none;"></div>
 
         <div class="booking-input-group">
           <label>Move-In Date</label>
@@ -975,6 +984,7 @@
         </div>
 
         <button class="btn-submit-booking" onclick="handleProtectedAction('booking')">Submit Booking Request</button>
+        <button type="button" onclick="reportActiveListing()" style="margin-top:8px;width:100%;background:transparent;border:1px solid #e6dccb;color:#6f675e;padding:0.65rem 1rem;border-radius:10px;font-weight:600;cursor:pointer;font-family:inherit;"><i class="fa-regular fa-flag"></i> Report listing</button>
         <button class="btn-contact-owner" onclick="handleProtectedAction('message')">Message Owner</button>
       </div>
     </div>
@@ -992,7 +1002,7 @@
         <a href="signin.html" class="btn-modal-login">Sign In</a>
         <a href="signup.html" class="btn-modal-signup">Sign Up</a>
       </div>
-      <button onclick="closeAuthModal()" style="background: none; border: none; color: #94a3b8; font-size: 0.82rem; font-weight: 700; margin-top: 1rem; cursor: pointer;">Cancel</button>
+      <button onclick="closeAuthModal()" style="background: none; border: none; color: #a3988c; font-size: 0.82rem; font-weight: 700; margin-top: 1rem; cursor: pointer;">Cancel</button>
     </div>
   </div>
 
@@ -1031,24 +1041,66 @@
     let activeProperty = null;
     let selectedRoom = null;
 
-    (async function initBrowse() {
-      const sessionUser = JSON.parse(localStorage.getItem('df_user') || 'null');
-      if (sessionUser && sessionUser.name) {
-        document.getElementById('navAuthLinks').innerHTML = `
-          <a href="${sessionUser.role === 'owner' ? 'owner-dashboard.html' : 'student-dashboard.html'}" class="btn-nav-signup" style="background: #314c75;">Dashboard (${sessionUser.name.split(' ')[0]})</a>
-        `;
-      }
+    function getSavedList() {
+      try { return JSON.parse(localStorage.getItem('df_saved') || '[]'); }
+      catch (e) { return []; }
+    }
+    function setSavedList(list) {
+      localStorage.setItem('df_saved', JSON.stringify(list));
+    }
+    function isSaved(id) {
+      return getSavedList().some(d => Number(d.id) === Number(id));
+    }
+    function dashForRole(role) {
+      return ({ student: 'student-dashboard.html', owner: 'owner-dashboard.html', admin: 'admin-dashboard.html' })[role] || 'student-dashboard.html';
+    }
+    function showListingSkeletons() {
+      const grid = document.getElementById('listingsGrid');
+      document.getElementById('resultsCountText').textContent = 'Loading dorms…';
+      grid.innerHTML = `<div class="skeleton-grid" style="grid-column:1/-1">${[1,2,3].map(() => `
+        <div class="skeleton-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line short"></div></div></div>
+      `).join('')}</div>`;
+    }
+    function showListingError(msg) {
+      const grid = document.getElementById('listingsGrid');
+      document.getElementById('resultsCountText').textContent = 'Could not load listings';
+      grid.innerHTML = `
+        <div class="empty-state-card" style="grid-column:1/-1">
+          <div class="empty-icon-circle"><i class="fa-solid fa-wifi"></i></div>
+          <h3>${msg || 'Could not load dorms'}</h3>
+          <p>Check your connection, then try again.</p>
+          <button class="btn-nav-signup" style="margin-top:1rem" onclick="loadBrowseProperties()">Retry</button>
+        </div>`;
+    }
 
+    async function loadBrowseProperties() {
+      showListingSkeletons();
       try {
         const res = await fetch('/api/properties');
         const data = await res.json();
         if (res.ok && data.success) {
-          allProperties = data.properties;
+          allProperties = data.properties || [];
           applyFilters();
+          const deepId = new URLSearchParams(location.search).get('property');
+          if (deepId) openDetailView(deepId);
+        } else {
+          showListingError(data.message || 'Could not load dorms');
         }
       } catch (err) {
         console.error('Failed to load database properties:', err);
+        showListingError('Could not connect to the server');
       }
+    }
+
+    (async function initBrowse() {
+      const sessionUser = JSON.parse(localStorage.getItem('df_user') || 'null');
+      if (sessionUser && sessionUser.name) {
+        const first = sessionUser.name.split(' ')[0];
+        document.getElementById('navAuthLinks').innerHTML = `
+          <a href="${dashForRole(sessionUser.role)}" class="btn-nav-signup">Dashboard · ${first}</a>
+        `;
+      }
+      await loadBrowseProperties();
     })();
 
     function applyFilters() {
@@ -1063,8 +1115,8 @@
       const sortOption = document.getElementById('sortSelect').value;
 
       let filtered = allProperties.filter(p => {
-        const name = p.name.toLowerCase();
-        const address = p.address.toLowerCase();
+        const name = (p.name || '').toLowerCase();
+        const address = (p.address || '').toLowerCase();
         const type = (p.type || '').toLowerCase();
         const price = parseInt(p.rawRent || '0');
 
@@ -1086,6 +1138,12 @@
         filtered.sort((a, b) => parseInt(a.rawRent || 0) - parseInt(b.rawRent || 0));
       } else if (sortOption === 'price-high') {
         filtered.sort((a, b) => parseInt(b.rawRent || 0) - parseInt(a.rawRent || 0));
+      } else {
+        filtered.sort((a, b) => {
+          const ra = Number(a.reviewCount) > 0 ? Number(a.rating) : -1;
+          const rb = Number(b.reviewCount) > 0 ? Number(b.rating) : -1;
+          return rb - ra;
+        });
       }
 
       renderListings(filtered);
@@ -1097,10 +1155,11 @@
 
       if (properties.length === 0) {
         grid.innerHTML = `
-          <div style="grid-column: 1 / -1; background: #ffffff; border: 1px dashed #cbd5e1; border-radius: 16px; padding: 4rem 2rem; text-align: center;">
-            <i class="fa-solid fa-house-chimney-crack" style="font-size: 2.5rem; color: #94a3b8; margin-bottom: 1rem;"></i>
-            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">No dorms match your filters</h3>
-            <p style="font-size: 0.875rem; color: #64748b;">Try adjusting your price range or clearing selected filters.</p>
+          <div class="empty-state-card" style="grid-column: 1 / -1;">
+            <div class="empty-icon-circle"><i class="fa-solid fa-house-chimney-crack"></i></div>
+            <h3>No dorms match your filters</h3>
+            <p>Try adjusting your price range or clearing selected filters.</p>
+            <button class="btn-nav-signup" style="margin-top:1rem" onclick="resetAllFilters()">Reset filters</button>
           </div>
         `;
         return;
@@ -1108,11 +1167,14 @@
 
       let html = '';
       properties.forEach(p => {
+        const fav = isSaved(p.id);
         html += `
           <div class="dorm-card" onclick="openDetailView(${p.id})">
             <div class="dorm-img-wrap" style="background-image: url('${p.image || 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&q=80'}')">
-              <span class="dorm-status-badge">${p.type || 'Dormitory'}</span>
-              <button class="dorm-fav-btn" onclick="event.stopPropagation(); handleProtectedAction('save')"><i class="fa-regular fa-heart"></i></button>
+              <span class="dorm-status-badge">${p.verified ? '<i class="fa-solid fa-shield-halved"></i> Verified' : (p.type || 'Dormitory')}</span>
+              <button class="dorm-fav-btn ${fav ? 'favorited' : ''}" onclick="event.stopPropagation(); toggleSaveProperty(${p.id})">
+                <i class="fa-${fav ? 'solid' : 'regular'} fa-heart"></i>
+              </button>
             </div>
             <div class="dorm-content">
               <div>
@@ -1123,7 +1185,7 @@
                 <div class="dorm-location">${p.address}</div>
               </div>
               <div class="dorm-footer-info">
-                <span><i class="fa-solid fa-location-dot"></i> Minglanilla</span>
+                <span><i class="fa-solid fa-bed"></i> ${p.availRooms || 0} vacant</span>
                 <div class="dorm-price">${p.rent}<span>/mo</span></div>
               </div>
             </div>
@@ -1197,30 +1259,66 @@
         </div>
       `;
 
-      const listAm = (p.amenities && p.amenities.length > 0) ? p.amenities : ['WiFi', 'AC', 'Kitchen'];
-      document.getElementById('detAmenitiesContainer').innerHTML = listAm.map(am =>
-        `<div class="detail-amenity-pill"><i class="fa-solid fa-check" style="color:#2563eb"></i> ${am}</div>`
-      ).join('');
+      const listAm = (p.amenities && p.amenities.length > 0) ? p.amenities : [];
+      document.getElementById('detAmenitiesContainer').innerHTML = listAm.length
+        ? listAm.map(am => `<div class="detail-amenity-pill"><i class="fa-solid fa-check" style="color:#c4512c"></i> ${am}</div>`).join('')
+        : `<div class="detail-amenity-pill" style="opacity:.75">No amenities listed yet</div>`;
 
-      // Rooms: total / available come from the owner's listing (same as student dashboard)
-      let roomsHtml = '';
-      selectedRoom = null;
-      for (let i = 1; i <= totalRoomsCount; i++) {
-        const roomName = `Room ${100 + i}`;
-        const isAvailable = i <= availRoomsCount;
-        let cls = 'room-card-option';
-        if (isAvailable && !selectedRoom) { cls += ' selected'; selectedRoom = roomName; }
-        if (!isAvailable) cls += ' taken';
-        const clickAttr = isAvailable ? `onclick="selectRoomCard(this, '${roomName}')"` : '';
-        roomsHtml += `
-          <div class="${cls}" ${clickAttr}>
-            <div class="room-title">${roomName}</div>
-            <div class="room-price">${p.rent}/mo</div>
-            <div class="room-status ${isAvailable ? 'avail' : 'taken'}">• ${isAvailable ? 'Available' : 'Taken'}</div>
-          </div>
-        `;
+      const inventory = (p.rooms && p.rooms.length)
+        ? p.rooms.filter(rm => (rm.display_status || rm.status) !== 'unavailable')
+        : Array.from({ length: totalRoomsCount }, (_, i) => ({
+            room_name: `Room ${i + 1}`,
+            status: 'vacant',
+            display_status: 'vacant',
+            selectable: true
+          }));
+      const vacant = inventory.filter(rm => rm.selectable !== false && (rm.display_status || rm.status) === 'vacant');
+      selectedRoom = vacant[0] ? vacant[0].room_name : null;
+      const summary = document.getElementById('detRoomsSummary');
+      if (summary) {
+        summary.textContent = vacant.length
+          ? `${vacant.length} vacant of ${inventory.length} rooms — pick one below.`
+          : `No vacant rooms right now (${inventory.length} total).`;
       }
-      document.getElementById('detRoomsGrid').innerHTML = roomsHtml;
+      const select = document.getElementById('detRoomSelect');
+      if (select) {
+        if (!vacant.length) {
+          select.innerHTML = '<option value="">No vacant rooms available</option>';
+          select.disabled = true;
+        } else {
+          select.disabled = false;
+          select.innerHTML = vacant.map(rm =>
+            `<option value="${String(rm.room_name).replace(/"/g, '&quot;')}">${rm.room_name} — Vacant · ${p.rent}/mo</option>`
+          ).join('');
+          select.value = selectedRoom;
+        }
+      }
+      const statusList = document.getElementById('detRoomsStatusList');
+      if (statusList) {
+        statusList.innerHTML = inventory.map(rm =>
+          `<div><strong>${rm.room_name}</strong> — ${(rm.display_status || rm.status || 'vacant')}</div>`
+        ).join('') || '<div>No rooms listed yet.</div>';
+      }
+      const selLabel = document.getElementById('detSelectedRoomLabel');
+      if (selLabel) selLabel.textContent = selectedRoom ? `Selected: ${selectedRoom} — ready to book` : 'No vacant room selected';
+      const vacantN = vacant.length;
+      document.getElementById('detPropSlots').textContent = vacantN > 0 ? `${vacantN} vacant room${vacantN === 1 ? '' : 's'}` : 'No vacant rooms';
+      document.getElementById('detPropSlotsBadge').textContent = vacantN > 0 ? `${vacantN} vacant` : 'Full';
+
+      let vBadge = document.getElementById('detVerifiedBadge');
+      if (!vBadge) {
+        vBadge = document.createElement('span');
+        vBadge.id = 'detVerifiedBadge';
+        vBadge.style.cssText = 'margin-left:10px;font-size:0.75rem;font-weight:700;padding:4px 10px;border-radius:999px;';
+        document.querySelector('#tab-dorm-detail .detail-title-row')?.appendChild(vBadge);
+      }
+      if (p.verified) {
+        vBadge.style.background = '#d1fae5'; vBadge.style.color = '#059669';
+        vBadge.innerHTML = '<i class="fa-solid fa-shield-halved"></i> Verified';
+      } else {
+        vBadge.style.background = '#fef3c7'; vBadge.style.color = '#b45309';
+        vBadge.textContent = 'Unverified';
+      }
 
       document.getElementById('browseViewContainer').style.display = 'none';
       document.getElementById('tab-dorm-detail').classList.add('active');
@@ -1228,16 +1326,140 @@
       initReviewsSection(p);
     }
 
+    async function reportActiveListing() {
+      const u = JSON.parse(localStorage.getItem('df_user') || 'null');
+      if (!u || !u.email) { alert('Please sign in to report a listing.'); window.location.href = 'signin.html'; return; }
+      if (!activeProperty) return;
+      const reason = prompt('Why are you reporting this listing?', 'Misleading or outdated information');
+      if (!reason) return;
+      const details = prompt('Optional details', '') || '';
+      try {
+        const res = await fetch('/api/reports', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ property_id: activeProperty.id, reporter_email: u.email, reason, details })
+        });
+        const data = await res.json();
+        alert(data.message || (data.success ? 'Report submitted.' : 'Could not submit report.'));
+      } catch (e) { alert('Could not connect to the server.'); }
+    }
+
+    function onBrowseRoomSelectChange() {
+      const select = document.getElementById('detRoomSelect');
+      selectedRoom = (select && select.value) || null;
+      const selLabel = document.getElementById('detSelectedRoomLabel');
+      if (selLabel) selLabel.textContent = selectedRoom ? `Selected: ${selectedRoom} — ready to book` : 'No vacant room selected';
+    }
+
     function selectRoomCard(el, roomName) {
-      document.querySelectorAll('.room-card-option').forEach(r => r.classList.remove('selected'));
-      el.classList.add('selected');
       selectedRoom = roomName;
+      const select = document.getElementById('detRoomSelect');
+      if (select) select.value = roomName;
+      onBrowseRoomSelectChange();
     }
 
     function closeDetailView() {
       document.getElementById('tab-dorm-detail').classList.remove('active');
       document.getElementById('browseViewContainer').style.display = 'block';
       window.scrollTo(0, 0);
+    }
+
+    function toggleSaveProperty(propertyId) {
+      const sessionUser = JSON.parse(localStorage.getItem('df_user') || 'null');
+      if (!sessionUser || !sessionUser.email) {
+        document.getElementById('authModal').classList.add('open');
+        return;
+      }
+      if (sessionUser.role !== 'student') {
+        dfToast('Only student accounts can save dorms.');
+        return;
+      }
+
+      const p = allProperties.find(x => Number(x.id) === Number(propertyId)) || activeProperty;
+      if (!p) return;
+
+      let list = getSavedList();
+      const exists = list.some(d => Number(d.id) === Number(p.id));
+      if (exists) {
+        list = list.filter(d => Number(d.id) !== Number(p.id));
+        setSavedList(list);
+        dfToast('Removed from saved dorms');
+      } else {
+        list.push({
+          id: p.id,
+          name: p.name,
+          location: p.address || 'Minglanilla, Cebu',
+          price: p.rent || '',
+          rating: Number(p.reviewCount) > 0 ? Number(p.rating).toFixed(1) : 'New',
+          imgUrl: p.image || 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&q=80',
+          type: p.type || 'Dormitory'
+        });
+        setSavedList(list);
+        dfToast('Saved to your list');
+      }
+      applyFilters();
+    }
+
+    async function submitBrowseBooking() {
+      const sessionUser = JSON.parse(localStorage.getItem('df_user') || 'null');
+      if (!sessionUser || !sessionUser.email) {
+        document.getElementById('authModal').classList.add('open');
+        return;
+      }
+      if (sessionUser.role !== 'student') {
+        dfToast('Only students can submit booking requests.');
+        return;
+      }
+      if (!activeProperty) {
+        dfToast('No property selected.');
+        return;
+      }
+      if (!selectedRoom) {
+        dfToast('Please choose a vacant room from the list first.');
+        return;
+      }
+      const moveIn = document.getElementById('detMoveInDate').value;
+      if (!moveIn) {
+        dfToast('Please select a move-in date.');
+        return;
+      }
+      if (!activeProperty.owner_email) {
+        dfToast('This listing has no owner email yet.');
+        return;
+      }
+
+      const btn = document.querySelector('.btn-submit-booking');
+      if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+
+      try {
+        const response = await fetch('/api/bookings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            property_id: activeProperty.id,
+            property_name: activeProperty.name,
+            room_name: selectedRoom,
+            student_name: sessionUser.name || 'Student Renter',
+            student_email: sessionUser.email,
+            owner_email: activeProperty.owner_email,
+            move_in_date: moveIn,
+            message: document.getElementById('detBookingMsg').value.trim(),
+            rent: activeProperty.rent
+          })
+        });
+        const data = await response.json();
+        if (response.ok && data.success) {
+          document.getElementById('detMoveInDate').value = '';
+          document.getElementById('detBookingMsg').value = '';
+          dfToast(`Booking request sent for ${selectedRoom}!`);
+          setTimeout(() => { window.location.href = 'student-dashboard.html#bookings'; }, 900);
+        } else {
+          dfToast(data.message || 'Could not submit booking request.');
+        }
+      } catch (err) {
+        dfToast('Could not connect to the server.');
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = 'Submit Booking Request'; }
+      }
     }
 
     function handleProtectedAction(actionType) {
@@ -1248,29 +1470,24 @@
       }
 
       if (actionType === 'booking') {
-        if (!selectedRoom) {
-          alert('No rooms are currently available for this property.');
-          return;
-        }
-        const moveIn = document.getElementById('detMoveInDate').value;
-        if (!moveIn) {
-          alert('Please select a move-in date.');
-          return;
-        }
-        alert('Please complete your booking request inside your student dashboard.');
-        window.location.href = 'student-dashboard.html';
+        submitBrowseBooking();
       } else if (actionType === 'message') {
-        window.location.href = 'student-dashboard.html';
+        if (sessionUser.role !== 'student') {
+          dfToast('Only students can message property owners.');
+          return;
+        }
+        const owner = activeProperty && activeProperty.owner_email ? encodeURIComponent(activeProperty.owner_email) : '';
+        const prop = activeProperty ? encodeURIComponent(activeProperty.id) : '';
+        window.location.href = `student-dashboard.html?tab=messages&to=${owner}&property=${prop}`;
       } else if (actionType === 'save') {
-        alert('Dorm added to your saved list!');
+        if (activeProperty) toggleSaveProperty(activeProperty.id);
       }
-      // 'review' needs nothing more here: being signed in is all the check it requires
     }
 
 
     /* ══════════ REVIEWS & RECOMMENDATIONS ══════════ */
     const RV_LABELS = ['', 'Poor', 'Fair', 'Good', 'Very good', 'Excellent'];
-    const RV_COLORS = [['#fde4d3', '#9a3412'], ['#fbd5e0', '#9d174d'], ['#dbeafe', '#1e40af'], ['#dcfce7', '#166534'], ['#ede9fe', '#5b21b6'], ['#fef3c7', '#92400e']];
+    const RV_COLORS = [['#fde4d3', '#9a3412'], ['#fbd5e0', '#9d174d'], ['#f6e4d6', '#9a3b1b'], ['#dcfce7', '#166534'], ['#ede9fe', '#5b21b6'], ['#fef3c7', '#92400e']];
     let rvState = { propId: null, reviews: [], summary: null, filter: 0, sort: 'newest', shown: 5, myRating: 0 };
 
     const escHtml = v => String(v == null ? '' : v).replace(/[&<>"']/g,

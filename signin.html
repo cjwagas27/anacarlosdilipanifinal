@@ -8,24 +8,24 @@
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Google Fonts (Plus Jakarta Sans) -->
+  <!-- Google Fonts (Outfit) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,620;1,9..144,560&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Outfit', sans-serif;
     }
 
     body {
       min-height: 100vh;
       display: flex;
-      background-color: #ffffff;
-      color: #1a202c;
+      background-color: #f6f1e8;
+      color: #1c1915;
     }
 
     .container {
@@ -37,7 +37,7 @@
     /* Left Hero / Promo Section (Slate Blue Theme) */
     .hero-section {
       flex: 1;
-      background-color: #314c75;
+      background-color: #1b4334;
       color: #ffffff;
       padding: 3rem 4rem;
       display: flex;
@@ -130,6 +130,7 @@
       padding: 3rem 4rem;
       max-width: 650px;
       margin: 0 auto;
+      background: #f6f1e8;
     }
 
     /* Back to Homepage Button */
@@ -137,7 +138,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      color: #64748b;
+      color: #6f675e;
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 600;
@@ -145,7 +146,7 @@
     }
 
     .back-home:hover {
-      color: #314c75;
+      color: #c4512c;
     }
 
     .form-wrapper {
@@ -163,7 +164,7 @@
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.1em;
-      color: #64748b;
+      color: #6f675e;
       text-transform: uppercase;
       margin-bottom: 0.6rem;
     }
@@ -171,13 +172,13 @@
     .form-title {
       font-size: 2.25rem;
       font-weight: 800;
-      color: #0f172a;
+      color: #1c1915;
       letter-spacing: -0.03em;
       margin-bottom: 0.6rem;
     }
 
     .form-subtext {
-      color: #64748b;
+      color: #6f675e;
       font-size: 0.95rem;
     }
 
@@ -190,7 +191,7 @@
       display: block;
       font-size: 0.9rem;
       font-weight: 600;
-      color: #334155;
+      color: #3f3832;
       margin-bottom: 0.5rem;
     }
 
@@ -203,7 +204,7 @@
     .input-icon {
       position: absolute;
       left: 1rem;
-      color: #94a3b8;
+      color: #a3988c;
       font-size: 0.95rem;
       pointer-events: none;
     }
@@ -211,27 +212,27 @@
     .input-field input {
       width: 100%;
       padding: 0.85rem 1rem 0.85rem 2.6rem;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       border-radius: 12px;
       font-size: 0.95rem;
-      color: #1e293b;
+      color: #1c1915;
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .input-field input::placeholder {
-      color: #94a3b8;
+      color: #a3988c;
     }
 
     .input-field input:focus {
-      border-color: #314c75;
-      box-shadow: 0 0 0 3px rgba(49, 76, 117, 0.15);
+      border-color: #c4512c;
+      box-shadow: 0 0 0 3px rgba(196, 81, 44, 0.15);
     }
 
     .password-icon-right {
       position: absolute;
       right: 1rem;
-      color: #94a3b8;
+      color: #a3988c;
       font-size: 0.95rem;
       cursor: pointer;
     }
@@ -249,7 +250,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: #475569;
+      color: #5c534b;
       cursor: pointer;
     }
 
@@ -257,13 +258,13 @@
       width: 16px;
       height: 16px;
       border-radius: 4px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #d9ccb8;
       cursor: pointer;
-      accent-color: #314c75;
+      accent-color: #c4512c;
     }
 
     .forgot-link {
-      color: #314c75;
+      color: #c4512c;
       text-decoration: none;
       font-weight: 700;
     }
@@ -276,10 +277,10 @@
     .btn-submit {
       width: 100%;
       padding: 0.9rem;
-      background-color: #2866c4;
+      border-radius: 999px;
+      background-color: #c4512c;
       color: #ffffff;
       border: none;
-      border-radius: 12px;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
@@ -287,12 +288,12 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      box-shadow: 0 4px 12px rgba(49, 76, 117, 0.2);
+      box-shadow: 0 4px 12px rgba(196, 81, 44, 0.2);
       transition: background-color 0.2s, transform 0.1s;
     }
 
     .btn-submit:hover {
-      background-color: #263c5d;
+      background-color: #9a3b1b;
     }
 
     .btn-submit:active {
@@ -304,11 +305,11 @@
       text-align: center;
       margin-top: 1.8rem;
       font-size: 0.9rem;
-      color: #64748b;
+      color: #6f675e;
     }
 
     .switch-page a {
-      color: #314c75;
+      color: #c4512c;
       text-decoration: none;
       font-weight: 700;
     }
@@ -321,7 +322,7 @@
     .form-footer {
       text-align: center;
       font-size: 0.8rem;
-      color: #94a3b8;
+      color: #a3988c;
     }
 
     /* Responsive Adjustments */
@@ -343,6 +344,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="css/theme.css"/>
 </head>
 <body>
 
@@ -351,7 +353,7 @@
     <div class="hero-section">
       <div class="hero-header">
         <a href="index.html" class="logo">
-          <span class="logo-text">DormFinder</span>
+          <span class="logo-text">Dorm<span class="gold">Finder</span></span>
         </a>
       </div>
 
@@ -390,6 +392,7 @@
         </div>
 
         <form id="signin-form">
+          <div class="form-alert" id="formAlert" role="alert"></div>
           <div class="input-group">
             <label for="email">Email address</label>
             <div class="input-field">
@@ -412,10 +415,10 @@
               <input type="checkbox" name="remember">
               <span>Remember me</span>
             </label>
-            <a href="#" class="forgot-link">Forgot password?</a>
+            <span class="forgot-link" title="Coming soon" style="opacity:.55;cursor:default">Forgot password?</span>
           </div>
 
-          <button type="submit" class="btn-submit">
+          <button type="submit" class="btn-submit" id="signinBtn">
             Sign in <i class="fa-solid fa-arrow-right"></i>
           </button>
         </form>
@@ -445,11 +448,27 @@
       }
     });
 
+    function showFormAlert(msg, type) {
+      const el = document.getElementById('formAlert');
+      el.className = 'form-alert show ' + (type || 'error');
+      el.textContent = msg;
+    }
+
+    (function showSignupBanner() {
+      const params = new URLSearchParams(location.search);
+      if (params.get('new') === '1') {
+        showFormAlert('Account created. Sign in to continue.', 'success');
+      }
+    })();
+
     document.getElementById('signin-form').addEventListener('submit', async function(e) {
       e.preventDefault();
 
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
+      const btn = document.getElementById('signinBtn');
+      btn.disabled = true;
+      btn.innerHTML = 'Signing in…';
 
       try {
         const response = await fetch('/api/signin', {
@@ -462,20 +481,22 @@
 
         if (response.ok && data.success) {
           localStorage.setItem('df_user', JSON.stringify(data.user));
-
-          if (data.user.role === 'owner') {
-            window.location.href = 'owner-dashboard.html';
-          } else if (data.user.role === 'admin') {
-            window.location.href = 'admin-dashboard.html';
-          } else {
-            window.location.href = 'student-dashboard.html';
-          }
+          const routes = {
+            owner: 'owner-dashboard.html',
+            admin: 'admin-dashboard.html',
+            student: 'student-dashboard.html'
+          };
+          window.location.href = routes[data.user.role] || 'student-dashboard.html';
         } else {
-          alert(data.message || 'Invalid email or password.');
+          showFormAlert(data.message || 'Invalid email or password.', 'error');
+          btn.disabled = false;
+          btn.innerHTML = 'Sign in <i class="fa-solid fa-arrow-right"></i>';
         }
       } catch (err) {
         console.error('Error:', err);
-        alert('Could not connect to the server.');
+        showFormAlert('Could not connect to the server.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = 'Sign in <i class="fa-solid fa-arrow-right"></i>';
       }
     });
   </script>

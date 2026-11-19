@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,620;1,9..144,560&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <!-- Leaflet CSS for Map Location Picker -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   
@@ -16,12 +16,12 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Outfit', sans-serif;
     }
 
     body {
-      background-color: #f8fafc;
-      color: #1e293b;
+      background-color: #f6f1e8;
+      color: #1c1915;
       display: flex;
       min-height: 100vh;
       overflow-x: hidden;
@@ -30,7 +30,7 @@
     /* ── SIDEBAR (Slate Blue Theme) ────────────────────────── */
     .sidebar {
       width: 260px;
-      background-color: #1b2d47;
+      background-color: #1b4334;
       color: #ffffff;
       display: flex;
       flex-direction: column;
@@ -60,9 +60,10 @@
 
     .brand-mark {
       width: 34px; height: 34px;
-      background: #314c75;
-      border-radius: 8px;
+      background: rgba(255,253,248,0.12);
+      border-radius: 12px 12px 4px 12px;
       display: flex; align-items: center; justify-content: center;
+      box-shadow: inset 0 -8px 0 #c4512c;
     }
 
     .sidebar-section-title {
@@ -86,7 +87,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.75rem 1rem;
-      border-radius: 10px;
+      border-radius: 999px;
       color: rgba(255,255,255,0.7);
       text-decoration: none;
       font-size: 0.9rem;
@@ -111,13 +112,13 @@
     }
 
     .nav-item.active {
-      background-color: #314c75;
+      background-color: #c4512c;
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(49, 76, 117, 0.3);
+      box-shadow: 0 4px 12px rgba(196, 81, 44, 0.3);
     }
 
     .badge {
-      background: #2563eb;
+      background: #c4512c;
       color: #ffffff;
       font-size: 0.7rem;
       font-weight: 700;
@@ -145,7 +146,7 @@
     .topbar {
       height: 70px;
       background: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e6dccb;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -164,16 +165,16 @@
     .icon-btn {
       width: 38px; height: 38px;
       border-radius: 10px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       background: #ffffff;
-      color: #64748b;
+      color: #6f675e;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .icon-btn:hover { background: #f8fafc; color: #1e293b; }
+    .icon-btn:hover { background: #f6f1e8; color: #1c1915; }
 
     .user-profile-display {
       display: flex;
@@ -184,13 +185,13 @@
     .user-meta .owner-name {
       font-size: 0.9rem;
       font-weight: 700;
-      color: #0f172a;
+      color: #1c1915;
       line-height: 1.2;
     }
 
     .user-meta .owner-role {
       font-size: 0.72rem;
-      color: #64748b;
+      color: #6f675e;
     }
 
     .dashboard-body {
@@ -210,20 +211,20 @@
 
     .dash-title-area p {
       font-size: 0.82rem;
-      color: #64748b;
+      color: #6f675e;
       margin-bottom: 4px;
       font-weight: 600;
     }
 
     .dash-title-area h1 {
-      font-size: 1.85rem;
-      font-weight: 800;
-      color: #0f172a;
-      letter-spacing: -0.02em;
+      font-size: clamp(1.7rem, 2.5vw, 2.2rem);
+      font-weight: 560;
+      color: #1c1915;
+      letter-spacing: -0.03em;
     }
 
     .btn-add-property {
-      background: #1b2d47;
+      background: #1b4334;
       color: #ffffff;
       border: none;
       padding: 0.7rem 1.25rem;
@@ -234,19 +235,19 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(27, 45, 71, 0.2);
+      box-shadow: 0 4px 12px rgba(27, 67, 52, 0.2);
       transition: background 0.2s, transform 0.1s;
     }
-    .btn-add-property:hover { background: #132238; transform: translateY(-1px); }
+    .btn-add-property:hover { background: #10281f; transform: translateY(-1px); }
 
     /* ── PROFILE TAB STYLES ────────────────────────────────── */
     .profile-card-box {
-      background: #132238;
+      background: #10281f;
       border-radius: 16px;
       padding: 2.5rem;
       color: #ffffff;
       max-width: 720px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+      box-shadow: 0 10px 30px rgba(28, 25, 21, 0.15);
     }
 
     .profile-avatar-row {
@@ -283,7 +284,7 @@
     .profile-form-group input,
     .profile-form-group textarea {
       width: 100%;
-      background: #1b2d47;
+      background: #1b4334;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 10px;
       padding: 0.75rem 1rem;
@@ -293,11 +294,11 @@
       transition: border-color 0.2s;
     }
     .profile-form-group input:focus,
-    .profile-form-group textarea:focus { border-color: #3b82f6; }
+    .profile-form-group textarea:focus { border-color: #c4512c; }
     .profile-form-group textarea { resize: vertical; min-height: 90px; }
 
     .btn-save-profile {
-      background: #2563eb;
+      background: #c4512c;
       color: #ffffff;
       border: none;
       width: 100%;
@@ -308,9 +309,9 @@
       cursor: pointer;
       margin-top: 1rem;
       transition: background 0.2s;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      box-shadow: 0 4px 12px rgba(196, 81, 44, 0.25);
     }
-    .btn-save-profile:hover { background: #1d4ed8; }
+    .btn-save-profile:hover { background: #9a3b1b; }
 
     /* Stats Grid */
     .stats-grid {
@@ -322,7 +323,7 @@
 
     .stat-card {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       border-radius: 16px;
       padding: 1.5rem;
       display: flex;
@@ -332,8 +333,8 @@
 
     .stat-icon-box {
       width: 44px; height: 44px;
-      background: #f1f5f9;
-      color: #1b2d47;
+      background: #efe6d6;
+      color: #1b4334;
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -347,14 +348,14 @@
     .stat-info .stat-value {
       font-size: 1.5rem;
       font-weight: 800;
-      color: #0f172a;
+      color: #1c1915;
       line-height: 1.1;
       margin-bottom: 2px;
     }
 
     .stat-info .stat-label {
       font-size: 0.8rem;
-      color: #64748b;
+      color: #6f675e;
       font-weight: 600;
     }
 
@@ -369,18 +370,18 @@
     .section-title-sm h2 {
       font-size: 1.15rem;
       font-weight: 800;
-      color: #0f172a;
+      color: #1c1915;
     }
 
     .section-title-sm p {
       font-size: 0.8rem;
-      color: #64748b;
+      color: #6f675e;
     }
 
     .view-all-link {
       font-size: 0.875rem;
       font-weight: 700;
-      color: #1b2d47;
+      color: #1b4334;
       text-decoration: none;
     }
     .view-all-link:hover { text-decoration: underline; }
@@ -395,7 +396,7 @@
 
     .property-card {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       border-radius: 16px;
       overflow: hidden;
       display: flex;
@@ -445,7 +446,7 @@
       border-radius: 50%;
       border: none;
       display: flex; align-items: center; justify-content: center;
-      color: #64748b;
+      color: #6f675e;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
@@ -461,15 +462,15 @@
     .prop-name {
       font-size: 1rem;
       font-weight: 800;
-      color: #0f172a;
+      color: #1c1915;
       margin-bottom: 2px;
       cursor: pointer;
     }
-    .prop-name:hover { color: #2563eb; }
+    .prop-name:hover { color: #c4512c; }
 
     .prop-address {
       font-size: 0.82rem;
-      color: #64748b;
+      color: #6f675e;
       margin-bottom: 1.25rem;
     }
 
@@ -477,21 +478,21 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid #f1f5f9;
+      border-top: 1px solid #efe6d6;
       padding-top: 0.85rem;
       font-size: 0.82rem;
-      color: #64748b;
+      color: #6f675e;
     }
 
     .prop-price {
       font-size: 1rem;
       font-weight: 800;
-      color: #0f172a;
+      color: #1c1915;
     }
-    .prop-price span { font-size: 0.75rem; font-weight: 500; color: #64748b; }
+    .prop-price span { font-size: 0.75rem; font-weight: 500; color: #6f675e; }
 
     .btn-manage-prop {
-      color: #1b2d47;
+      color: #1b4334;
       font-weight: 700;
       text-decoration: none;
       font-size: 0.85rem;
@@ -512,9 +513,9 @@
     }
 
     .btn-back-dash {
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
-      color: #0f172a;
+      background: #f6f1e8;
+      border: 1px solid #d9ccb8;
+      color: #1c1915;
       padding: 0.55rem 1.2rem;
       border-radius: 12px;
       font-size: 0.85rem;
@@ -526,8 +527,8 @@
       transition: background 0.2s, border-color 0.2s;
     }
     .btn-back-dash:hover {
-      background: #f1f5f9;
-      border-color: #94a3b8;
+      background: #efe6d6;
+      border-color: #a3988c;
     }
 
     .detail-photo-gallery {
@@ -563,7 +564,7 @@
     .detail-more-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(28, 25, 21, 0.6);
       color: #ffffff;
       display: flex;
       flex-direction: column;
@@ -589,7 +590,7 @@
     .detail-title-row h1 {
       font-size: 2rem;
       font-weight: 800;
-      color: #0f172a;
+      color: #1c1915;
       margin-bottom: 6px;
     }
 
@@ -598,13 +599,13 @@
       align-items: center;
       gap: 12px;
       font-size: 0.85rem;
-      color: #64748b;
+      color: #6f675e;
       font-weight: 600;
     }
 
     .badge-type {
-      background: #eff6ff;
-      color: #2563eb;
+      background: #fff6ee;
+      color: #c4512c;
       padding: 4px 10px;
       border-radius: 6px;
       font-weight: 700;
@@ -612,14 +613,14 @@
 
     .detail-desc-box {
       font-size: 0.95rem;
-      color: #334155;
+      color: #3f3832;
       line-height: 1.5;
     }
 
     .detail-section-title {
       font-size: 1.1rem;
       font-weight: 800;
-      color: #0f172a;
+      color: #1c1915;
       margin-bottom: 0.85rem;
       display: flex;
       align-items: center;
@@ -634,12 +635,12 @@
 
     .detail-amenity-pill {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       border-radius: 10px;
       padding: 0.7rem 1rem;
       font-size: 0.85rem;
       font-weight: 600;
-      color: #334155;
+      color: #3f3832;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -660,7 +661,7 @@
       width: 100%;
       height: 290px;
       border-radius: 14px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
@@ -671,8 +672,8 @@
       bottom: 12px;
       right: 12px;
       background: #ffffff;
-      color: #0f172a;
-      border: 1px solid #cbd5e1;
+      color: #1c1915;
+      border: 1px solid #d9ccb8;
       padding: 6px 12px;
       border-radius: 8px;
       font-size: 0.78rem;
@@ -685,11 +686,11 @@
       z-index: 12;
       transition: background 0.2s;
     }
-    .map-open-btn:hover { background: #f8fafc; color: #2563eb; }
+    .map-open-btn:hover { background: #f6f1e8; color: #c4512c; }
 
     .owner-contact-card {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       border-radius: 14px;
       padding: 1.25rem;
       display: flex;
@@ -703,13 +704,13 @@
       gap: 12px;
     }
 
-    .owner-info-flex h4 { font-size: 0.95rem; font-weight: 800; color: #0f172a; }
-    .owner-info-flex p { font-size: 0.78rem; color: #64748b; }
+    .owner-info-flex h4 { font-size: 0.95rem; font-weight: 800; color: #1c1915; }
+    .owner-info-flex p { font-size: 0.78rem; color: #6f675e; }
 
     .btn-msg-owner {
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
-      color: #64748b;
+      background: #f6f1e8;
+      border: 1px solid #d9ccb8;
+      color: #6f675e;
       padding: 0.5rem 1rem;
       border-radius: 8px;
       font-size: 0.82rem;
@@ -718,7 +719,7 @@
 
     .detail-right-col {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e6dccb;
       border-radius: 16px;
       padding: 1.5rem;
       height: fit-content;
@@ -729,10 +730,10 @@
     .detail-price-display {
       font-size: 1.75rem;
       font-weight: 800;
-      color: #0f172a;
+      color: #1c1915;
       margin-bottom: 4px;
     }
-    .detail-price-display span { font-size: 0.85rem; font-weight: 500; color: #64748b; }
+    .detail-price-display span { font-size: 0.85rem; font-weight: 500; color: #6f675e; }
 
     .detail-slots-badge {
       display: inline-block;
@@ -760,7 +761,7 @@
     .modal-backdrop {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(28, 25, 21, 0.6);
       backdrop-filter: blur(4px);
       display: none;
       align-items: center;
@@ -797,58 +798,58 @@
     .modal-header-row h3 {
       font-size: 1.25rem;
       font-weight: 800;
-      color: #0f172a;
+      color: #1c1915;
     }
 
     .modal-close-btn {
       width: 30px; height: 30px;
-      background: #f1f5f9;
+      background: #efe6d6;
       border: none;
       border-radius: 50%;
-      color: #64748b;
+      color: #6f675e;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: background 0.2s;
     }
-    .modal-close-btn:hover { background: #e2e8f0; color: #0f172a; }
+    .modal-close-btn:hover { background: #e6dccb; color: #1c1915; }
 
     /* ── STUDENT / BOOKER LINKS + PROFILE MODAL ───────────── */
-    .orv-summary { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.4rem 1.6rem; margin-bottom: 1.25rem; }
+    .orv-summary { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; background: #ffffff; border: 1px solid #e6dccb; border-radius: 16px; padding: 1.4rem 1.6rem; margin-bottom: 1.25rem; }
     .orv-score { text-align: center; min-width: 130px; }
-    .orv-score .n { font-size: 2.6rem; font-weight: 800; color: #0f172a; line-height: 1; }
-    .orv-score .n span { font-size: 1rem; font-weight: 600; color: #94a3b8; }
-    .orv-score .sub { font-size: 0.8rem; color: #64748b; margin-top: 6px; font-weight: 600; }
+    .orv-score .n { font-size: 2.6rem; font-weight: 800; color: #1c1915; line-height: 1; }
+    .orv-score .n span { font-size: 1rem; font-weight: 600; color: #a3988c; }
+    .orv-score .sub { font-size: 0.8rem; color: #6f675e; margin-top: 6px; font-weight: 600; }
     .orv-bars { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 6px; }
-    .orv-bar { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: #475569; font-weight: 700; }
-    .orv-bar .track { flex: 1; height: 8px; background: #f1f5f9; border-radius: 6px; overflow: hidden; }
+    .orv-bar { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: #5c534b; font-weight: 700; }
+    .orv-bar .track { flex: 1; height: 8px; background: #efe6d6; border-radius: 6px; overflow: hidden; }
     .orv-bar .fill { height: 100%; background: #f59e0b; border-radius: 6px; }
-    .orv-bar .c { width: 26px; text-align: right; color: #94a3b8; }
-    .orv-stars span { color: #e2e8f0; }
+    .orv-bar .c { width: 26px; text-align: right; color: #a3988c; }
+    .orv-stars span { color: #e6dccb; }
     .orv-stars span.on { color: #f59e0b; }
-    .orv-item { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.1rem 1.25rem; margin-bottom: 0.85rem; display: flex; gap: 0.9rem; }
-    .orv-avatar { width: 40px; height: 40px; border-radius: 50%; background: #314c75; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .orv-item { background: #ffffff; border: 1px solid #e6dccb; border-radius: 16px; padding: 1.1rem 1.25rem; margin-bottom: 0.85rem; display: flex; gap: 0.9rem; }
+    .orv-avatar { width: 40px; height: 40px; border-radius: 50%; background: #c4512c; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
     .orv-body { flex: 1; min-width: 0; }
     .orv-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; margin-bottom: 3px; }
-    .orv-head b { color: #0f172a; font-size: 0.92rem; }
-    .orv-head .t { font-size: 0.76rem; color: #94a3b8; font-weight: 600; }
-    .orv-prop { display: inline-block; background: #eff6ff; color: #2563eb; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 6px; margin-top: 2px; }
-    .orv-text { font-size: 0.88rem; color: #334155; line-height: 1.55; margin-top: 6px; white-space: pre-line; word-break: break-word; }
-    .orv-rec { font-size: 0.76rem; font-weight: 700; margin-top: 7px; color: #2563eb; }
-    .orv-rec.no { color: #94a3b8; }
+    .orv-head b { color: #1c1915; font-size: 0.92rem; }
+    .orv-head .t { font-size: 0.76rem; color: #a3988c; font-weight: 600; }
+    .orv-prop { display: inline-block; background: #fff6ee; color: #c4512c; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 6px; margin-top: 2px; }
+    .orv-text { font-size: 0.88rem; color: #3f3832; line-height: 1.55; margin-top: 6px; white-space: pre-line; word-break: break-word; }
+    .orv-rec { font-size: 0.76rem; font-weight: 700; margin-top: 7px; color: #c4512c; }
+    .orv-rec.no { color: #a3988c; }
 
     .student-link {
       background: none; border: none; padding: 0; cursor: pointer;
-      font: inherit; font-weight: 800; color: #2563eb;
+      font: inherit; font-weight: 800; color: #c4512c;
       text-decoration: none; text-align: left;
-      border-bottom: 1.5px dashed rgba(37, 99, 235, 0.45);
+      border-bottom: 1.5px dashed rgba(196, 81, 44, 0.45);
       transition: color 0.15s, border-color 0.15s;
     }
-    .student-link:hover { color: #1d4ed8; border-bottom-style: solid; border-color: #1d4ed8; }
+    .student-link:hover { color: #9a3b1b; border-bottom-style: solid; border-color: #9a3b1b; }
     .booking-card { cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
-    .booking-card:hover { border-color: #2563eb !important; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12); transform: translateY(-1px); }
+    .booking-card:hover { border-color: #c4512c !important; box-shadow: 0 6px 18px rgba(196, 81, 44, 0.12); transform: translateY(-1px); }
     .avatar-circle {
       width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
-      background: #314c75; color: #ffffff;
+      background: #c4512c; color: #ffffff;
       display: flex; align-items: center; justify-content: center;
       font-weight: 800; font-size: 0.9rem;
     }
@@ -861,40 +862,40 @@
     .status-pill.approved { background: #d1fae5; color: #059669; }
     .status-pill.rejected { background: #fee2e2; color: #dc2626; }
     .profile-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
-    .profile-top h4 { font-size: 1.2rem; font-weight: 800; color: #0f172a; margin-bottom: 2px; }
-    .profile-top p { font-size: 0.85rem; color: #64748b; }
+    .profile-top h4 { font-size: 1.2rem; font-weight: 800; color: #1c1915; margin-bottom: 2px; }
+    .profile-top p { font-size: 0.85rem; color: #6f675e; }
     .profile-info-row {
       display: flex; gap: 12px; align-items: flex-start;
-      padding: 0.7rem 0; border-bottom: 1px solid #f1f5f9;
-      font-size: 0.88rem; color: #1e293b; word-break: break-word;
+      padding: 0.7rem 0; border-bottom: 1px solid #efe6d6;
+      font-size: 0.88rem; color: #1c1915; word-break: break-word;
     }
-    .profile-info-row i { width: 18px; color: #2563eb; margin-top: 3px; text-align: center; }
-    .profile-info-row .muted { color: #94a3b8; }
-    .profile-info-row a { color: #2563eb; text-decoration: none; font-weight: 600; }
+    .profile-info-row i { width: 18px; color: #c4512c; margin-top: 3px; text-align: center; }
+    .profile-info-row .muted { color: #a3988c; }
+    .profile-info-row a { color: #c4512c; text-decoration: none; font-weight: 600; }
     .booking-info-box {
-      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px;
+      background: #f6f1e8; border: 1px solid #e6dccb; border-radius: 14px;
       padding: 1rem 1.1rem; margin-top: 1.25rem;
     }
     .booking-info-box .bi-title {
       font-size: 0.75rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
-      color: #64748b; margin-bottom: 0.6rem;
+      color: #6f675e; margin-bottom: 0.6rem;
     }
     .booking-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1rem; }
-    .booking-info-grid .k { font-size: 0.72rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
-    .booking-info-grid .v { font-size: 0.9rem; font-weight: 700; color: #0f172a; word-break: break-word; }
+    .booking-info-grid .k { font-size: 0.72rem; color: #a3988c; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .booking-info-grid .v { font-size: 0.9rem; font-weight: 700; color: #1c1915; word-break: break-word; }
     .booking-msg-quote {
       margin-top: 0.9rem; padding: 0.75rem 0.9rem; background: #ffffff;
-      border-left: 3px solid #2563eb; border-radius: 6px;
-      font-size: 0.85rem; color: #475569; font-style: italic; word-break: break-word;
+      border-left: 3px solid #c4512c; border-radius: 6px;
+      font-size: 0.85rem; color: #5c534b; font-style: italic; word-break: break-word;
     }
     .booker-row {
       display: flex; align-items: center; gap: 0.85rem;
-      background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;
+      background: #ffffff; border: 1px solid #e6dccb; border-radius: 12px;
       padding: 0.8rem 1rem; margin-bottom: 0.6rem;
     }
     .booker-row .avatar-circle { width: 38px; height: 38px; font-size: 0.8rem; }
     .booker-row .b-main { flex: 1; min-width: 0; }
-    .booker-row .b-sub { font-size: 0.78rem; color: #64748b; margin-top: 2px; }
+    .booker-row .b-sub { font-size: 0.78rem; color: #6f675e; margin-top: 2px; }
     .profile-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1.5rem; }
     .profile-actions button {
       border: none; border-radius: 10px; padding: 0.7rem 1.2rem;
@@ -915,7 +916,7 @@
       display: block;
       font-size: 0.82rem;
       font-weight: 700;
-      color: #0f172a;
+      color: #1c1915;
       margin-bottom: 6px;
     }
 
@@ -923,18 +924,18 @@
     .modal-form-group select,
     .modal-form-group textarea {
       width: 100%;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #d9ccb8;
       border-radius: 10px;
       padding: 0.7rem 0.9rem;
       font-size: 0.9rem;
-      color: #0f172a;
+      color: #1c1915;
       outline: none;
       background: #ffffff;
       transition: border-color 0.2s;
     }
     .modal-form-group input:focus,
     .modal-form-group select:focus,
-    .modal-form-group textarea:focus { border-color: #2563eb; }
+    .modal-form-group textarea:focus { border-color: #c4512c; }
 
     .modal-form-group textarea {
       resize: vertical;
@@ -954,27 +955,27 @@
       gap: 8px;
       font-size: 0.85rem;
       font-weight: 600;
-      color: #334155;
+      color: #3f3832;
       cursor: pointer;
     }
     .amenity-checkbox input {
-      width: 16px; height: 16px; accent-color: #2563eb; cursor: pointer; border-radius: 4px;
+      width: 16px; height: 16px; accent-color: #c4512c; cursor: pointer; border-radius: 4px;
     }
 
     .photo-upload-box {
-      border: 2px dashed #cbd5e1;
+      border: 2px dashed #d9ccb8;
       border-radius: 12px;
       padding: 1.25rem;
       text-align: center;
-      background: #f8fafc;
+      background: #f6f1e8;
       cursor: pointer;
       margin-bottom: 1rem;
       transition: border-color 0.2s;
     }
-    .photo-upload-box:hover { border-color: #2563eb; }
-    .photo-upload-box i { font-size: 1.4rem; color: #64748b; margin-bottom: 4px; }
-    .photo-upload-box p { font-size: 0.85rem; font-weight: 700; color: #0f172a; margin-bottom: 2px; }
-    .photo-upload-box span { font-size: 0.75rem; color: #64748b; }
+    .photo-upload-box:hover { border-color: #c4512c; }
+    .photo-upload-box i { font-size: 1.4rem; color: #6f675e; margin-bottom: 4px; }
+    .photo-upload-box p { font-size: 0.85rem; font-weight: 700; color: #1c1915; margin-bottom: 2px; }
+    .photo-upload-box span { font-size: 0.75rem; color: #6f675e; }
 
     .photo-thumbs-row {
       display: flex;
@@ -987,7 +988,7 @@
       width: 70px;
       height: 70px;
       border-radius: 10px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #d9ccb8;
       background-size: cover;
       background-position: center;
       position: relative;
@@ -997,7 +998,7 @@
     .photo-thumb-item .thumb-cover-badge {
       position: absolute;
       bottom: 4px; left: 4px; right: 4px;
-      background: #2563eb;
+      background: #c4512c;
       color: #ffffff;
       font-size: 0.6rem;
       font-weight: 800;
@@ -1010,7 +1011,7 @@
       position: absolute;
       top: -6px; right: -6px;
       width: 20px; height: 20px;
-      background: #0f172a;
+      background: #1c1915;
       color: #ffffff;
       border: 2px solid #ffffff;
       border-radius: 50%;
@@ -1023,7 +1024,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid #f1f5f9;
+      border-top: 1px solid #efe6d6;
       padding-top: 1.25rem;
     }
 
@@ -1033,19 +1034,19 @@
     }
 
     .btn-modal-cancel {
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
-      color: #475569;
+      background: #f6f1e8;
+      border: 1px solid #d9ccb8;
+      color: #5c534b;
       padding: 0.7rem 1.4rem;
       border-radius: 10px;
       font-size: 0.875rem;
       font-weight: 700;
       cursor: pointer;
     }
-    .btn-modal-cancel:hover { background: #f8fafc; }
+    .btn-modal-cancel:hover { background: #f6f1e8; }
 
     .btn-modal-submit {
-      background: #2563eb;
+      background: #c4512c;
       border: none;
       color: #ffffff;
       padding: 0.7rem 1.75rem;
@@ -1053,9 +1054,9 @@
       font-size: 0.875rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      box-shadow: 0 4px 12px rgba(196, 81, 44, 0.25);
     }
-    .btn-modal-submit:hover { background: #1d4ed8; }
+    .btn-modal-submit:hover { background: #9a3b1b; }
 
     .btn-modal-delete {
       background: #fee2e2;
@@ -1072,7 +1073,7 @@
 
     .empty-state-card {
       background: #ffffff;
-      border: 1px dashed #cbd5e1;
+      border: 1px dashed #d9ccb8;
       border-radius: 20px;
       padding: 5rem 2rem;
       text-align: center;
@@ -1084,10 +1085,10 @@
 
     .empty-icon-circle {
       width: 56px; height: 56px;
-      background: #f1f5f9;
+      background: #efe6d6;
       border-radius: 16px;
       display: flex; align-items: center; justify-content: center;
-      color: #1b2d47; font-size: 1.25rem; margin-bottom: 1rem;
+      color: #1b4334; font-size: 1.25rem; margin-bottom: 1rem;
     }
 
     @media (max-width: 1200px) {
@@ -1101,7 +1102,7 @@
     /* ── Leaflet map + pin (same look as the homepage map) ── */
     .df-pin {
       width: 30px; height: 30px;
-      background: #16a34a;
+      background: #c4512c;
       border: 2px solid #ffffff;
       border-radius: 50% 50% 50% 0;
       transform: rotate(-45deg);
@@ -1115,9 +1116,10 @@
       border-radius: 50%;
       top: 8px; left: 8px;
     }
-    .leaflet-container { font-family: 'Plus Jakarta Sans', sans-serif; z-index: 0; }
+    .leaflet-container { font-family: 'Outfit', sans-serif; z-index: 0; }
     .btn-open-maps, .map-open-btn { z-index: 1000; }
   </style>
+  <link rel="stylesheet" href="css/theme.css"/>
 </head>
 <body>
 
@@ -1128,7 +1130,7 @@
         <div class="brand-mark">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M12 2L3 9v13h6v-7h6v7h6V9z"/></svg>
         </div>
-        DormFinder
+        Dorm<span class="gold">Finder</span>
       </a>
 
       <div class="sidebar-section-title">Property Owner</div>
@@ -1272,7 +1274,7 @@
             <i class="fa-solid fa-plus"></i> Add property
           </button>
         </div>
-        <p style="color: #64748b; margin-bottom: 1.5rem;">Manage listings, availability, and pricing.</p>
+        <p style="color: #6f675e; margin-bottom: 1.5rem;">Manage listings, availability, and pricing.</p>
 
         <div class="properties-grid" id="propertiesGridTab">
           <!-- Dynamically populated -->
@@ -1287,13 +1289,13 @@
             <h1>Booking Requests</h1>
           </div>
         </div>
-        <p style="color: #64748b; margin-bottom: 1.75rem;">Review and respond to student viewing requests.</p>
+        <p style="color: #6f675e; margin-bottom: 1.75rem;">Review and respond to student viewing requests.</p>
 
         <div id="ownerBookingsContainer">
           <div class="empty-state-card">
             <div class="empty-icon-circle"><i class="fa-regular fa-comment"></i></div>
-            <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">No booking requests</h3>
-            <p style="font-size: 0.875rem; color: #64748b;">Student booking and viewing requests will appear here.</p>
+            <h3 style="font-size: 1.1rem; font-weight: 800; color: #1c1915; margin-bottom: 6px;">No booking requests</h3>
+            <p style="font-size: 0.875rem; color: #6f675e;">Student booking and viewing requests will appear here.</p>
           </div>
         </div>
       </div>
@@ -1306,20 +1308,20 @@
             <h1>Conversations</h1>
           </div>
         </div>
-        <p style="color: #64748b; margin-bottom: 1.75rem;">Keep up with prospective and current tenants.</p>
+        <p style="color: #6f675e; margin-bottom: 1.75rem;">Keep up with prospective and current tenants.</p>
 
-        <div style="display: grid; grid-template-columns: 320px 1fr; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; height: 600px; overflow: hidden;">
-          <div style="border-right: 1px solid #e2e8f0; overflow-y: auto;" id="conversationsListContainer">
-            <div style="padding: 1.25rem; color: #64748b; font-size: 0.85rem;">Loading conversations...</div>
+        <div style="display: grid; grid-template-columns: 320px 1fr; background: #ffffff; border: 1px solid #e6dccb; border-radius: 16px; height: 600px; overflow: hidden;">
+          <div style="border-right: 1px solid #e6dccb; overflow-y: auto;" id="conversationsListContainer">
+            <div style="padding: 1.25rem; color: #6f675e; font-size: 0.85rem;">Loading conversations...</div>
           </div>
-          <div style="display: flex; flex-direction: column; background: #f8fafc;" id="activeChatWindow">
-            <div style="padding: 1.25rem; border-bottom: 1px solid #e2e8f0; background: #ffffff; font-weight: 700; color: #0f172a;" id="activeChatHeader">Select a conversation</div>
+          <div style="display: flex; flex-direction: column; background: #f6f1e8;" id="activeChatWindow">
+            <div style="padding: 1.25rem; border-bottom: 1px solid #e6dccb; background: #ffffff; font-weight: 700; color: #1c1915;" id="activeChatHeader">Select a conversation</div>
             <div style="flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem;" id="chatMessagesBox">
-              <div style="text-align: center; color: #94a3b8; margin: auto;">Select a conversation to view messages</div>
+              <div style="text-align: center; color: #a3988c; margin: auto;">Select a conversation to view messages</div>
             </div>
-            <div style="padding: 1rem; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; gap: 10px;">
-              <input type="text" id="chatReplyInput" placeholder="Type a message..." style="flex: 1; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.65rem 1rem; outline: none; font-size: 0.9rem;" onkeydown="if(event.key==='Enter') sendChatReply()"/>
-              <button onclick="sendChatReply()" style="background: #2563eb; color: #ffffff; border: none; padding: 0.65rem 1.25rem; border-radius: 8px; font-weight: 700; cursor: pointer;">Send</button>
+            <div style="padding: 1rem; background: #ffffff; border-top: 1px solid #e6dccb; display: flex; gap: 10px;">
+              <input type="text" id="chatReplyInput" placeholder="Type a message..." style="flex: 1; border: 1px solid #d9ccb8; border-radius: 8px; padding: 0.65rem 1rem; outline: none; font-size: 0.9rem;" onkeydown="if(event.key==='Enter') sendChatReply()"/>
+              <button onclick="sendChatReply()" style="background: #c4512c; color: #ffffff; border: none; padding: 0.65rem 1.25rem; border-radius: 8px; font-weight: 700; cursor: pointer;">Send</button>
             </div>
           </div>
         </div>
@@ -1333,13 +1335,13 @@
             <h1>Reviews & Ratings</h1>
           </div>
         </div>
-        <p style="color: #64748b; margin-bottom: 1.75rem;">See what students are saying about your properties.</p>
+        <p style="color: #6f675e; margin-bottom: 1.75rem;">See what students are saying about your properties.</p>
 
         <div id="ownerReviewsContainer">
           <div class="empty-state-card">
             <div class="empty-icon-circle"><i class="fa-regular fa-star"></i></div>
-            <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">0.0 Average Rating</h3>
-            <p style="font-size: 0.875rem; color: #64748b;">Total of 0 reviews across your active listings.</p>
+            <h3 style="font-size: 1.1rem; font-weight: 800; color: #1c1915; margin-bottom: 6px;">0.0 Average Rating</h3>
+            <p style="font-size: 0.875rem; color: #6f675e;">Total of 0 reviews across your active listings.</p>
           </div>
         </div>
       </div>
@@ -1445,7 +1447,14 @@
             </div>
 
             <div>
-              <div class="detail-section-title"><i class="fa-regular fa-calendar-check"></i> Booked By <span id="detailBookersCount" style="font-size: 0.8rem; font-weight: 600; color: #64748b; margin-left: 6px;"></span></div>
+              <div class="detail-section-title"><i class="fa-solid fa-bed"></i> Room inventory</div>
+              <p style="font-size:0.85rem;color:#6f675e;margin:0 0 0.5rem;">These are the rooms students pick when booking. Vacant = bookable. Reserved/Occupied update from bookings. Use Mark unavailable for maintenance.</p>
+              <div id="detailRoomsSummary" style="font-size:0.82rem;font-weight:700;color:#1b4334;margin-bottom:0.75rem;"></div>
+              <div id="detailRoomsInventory" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;"></div>
+            </div>
+
+            <div>
+              <div class="detail-section-title"><i class="fa-regular fa-calendar-check"></i> Booked By <span id="detailBookersCount" style="font-size: 0.8rem; font-weight: 600; color: #6f675e; margin-left: 6px;"></span></div>
               <div id="detailBookersContainer"></div>
             </div>
 
@@ -1522,22 +1531,21 @@
       <!-- MAP LOCATION PICKER -->
       <div class="modal-form-group">
         <label>Pin Exact Property Location on Map</label>
-        <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 8px;">Click anywhere on the Minglanilla map or drag the pin to set your exact location.</p>
-        <div id="ownerPickerMap" style="width: 100%; height: 220px; border-radius: 10px; border: 1px solid #cbd5e1; margin-bottom: 6px;"></div>
-        <div id="selectedCoordsText" style="font-size: 0.8rem; font-weight: 700; color: #2563eb;">Selected Coordinates: 10.2480, 123.7850</div>
+        <p style="font-size: 0.78rem; color: #6f675e; margin-bottom: 8px;">Click anywhere on the Minglanilla map or drag the pin to set your exact location.</p>
+        <div id="ownerPickerMap" style="width: 100%; height: 220px; border-radius: 10px; border: 1px solid #d9ccb8; margin-bottom: 6px;"></div>
+        <div id="selectedCoordsText" style="font-size: 0.8rem; font-weight: 700; color: #c4512c;">Selected Coordinates: 10.2480, 123.7850</div>
         <input type="hidden" id="propLat" value="10.2480"/>
         <input type="hidden" id="propLon" value="123.7850"/>
       </div>
 
-      <div class="form-grid-2">
-        <div class="modal-form-group">
-          <label>Total Rooms</label>
-          <input type="number" id="newPropTotalRooms" placeholder="10"/>
-        </div>
-        <div class="modal-form-group">
-          <label>Available Rooms</label>
-          <input type="number" id="newPropAvailRooms" placeholder="5"/>
-        </div>
+      <div class="modal-form-group">
+        <label>How many rooms does this property have?</label>
+        <input type="number" id="newPropTotalRooms" min="1" max="50" placeholder="e.g. 5"/>
+        <p style="font-size:0.78rem;color:#6f675e;margin:8px 0 0;line-height:1.45;">
+          Example: enter <strong>5</strong> and the system creates <strong>Room 1–5</strong>, all vacant.
+          You do <em>not</em> set “available rooms” separately — students pick from a simple vacant-room list, and availability updates when someone books, you approve, or you mark a room unavailable.
+        </p>
+        <input type="hidden" id="newPropAvailRooms" value=""/>
       </div>
 
       <div class="modal-form-group">
@@ -1673,18 +1681,23 @@
 
     (function loadOwnerProfile() {
       const u = JSON.parse(localStorage.getItem('df_user') || 'null');
-      if (u) {
-        if (u.name) {
-          document.getElementById('nav-username').textContent = u.name;
-          document.getElementById('greet-name').textContent = u.name.split(' ')[0];
-          document.getElementById('profile-display-name').textContent = u.name;
-          document.getElementById('profile-input-name').value = u.name;
-        }
-        if (u.email) document.getElementById('profile-input-email').value = u.email;
-        if (u.phone) document.getElementById('profile-input-phone').value = u.phone;
-        if (u.address) document.getElementById('profile-input-address').value = u.address;
-        if (u.bio) document.getElementById('profile-input-bio').value = u.bio;
+      if (!u || !u.email) {
+        window.location.href = 'signin.html';
+        return;
       }
+      if (u.role === 'student') { window.location.href = 'student-dashboard.html'; return; }
+      if (u.role === 'admin') { window.location.href = 'admin-dashboard.html'; return; }
+
+      if (u.name) {
+        document.getElementById('nav-username').textContent = u.name;
+        document.getElementById('greet-name').textContent = u.name.split(' ')[0];
+        document.getElementById('profile-display-name').textContent = u.name;
+        document.getElementById('profile-input-name').value = u.name;
+      }
+      if (u.email) document.getElementById('profile-input-email').value = u.email;
+      if (u.phone) document.getElementById('profile-input-phone').value = u.phone;
+      if (u.address) document.getElementById('profile-input-address').value = u.address;
+      if (u.bio) document.getElementById('profile-input-bio').value = u.bio;
     })();
 
     function handleLogout(e) {
@@ -1799,8 +1812,8 @@
           box.innerHTML = `
             <div class="empty-state-card">
               <div class="empty-icon-circle"><i class="fa-regular fa-star"></i></div>
-              <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">0.0 Average Rating</h3>
-              <p style="font-size: 0.875rem; color: #64748b;">No reviews yet across your listings. Students can rate and review a property from its page.</p>
+              <h3 style="font-size: 1.1rem; font-weight: 800; color: #1c1915; margin-bottom: 6px;">0.0 Average Rating</h3>
+              <p style="font-size: 0.875rem; color: #6f675e;">No reviews yet across your listings. Students can rate and review a property from its page.</p>
             </div>`;
           return;
         }
@@ -1865,8 +1878,8 @@
         container.innerHTML = `
           <div class="empty-state-card">
             <div class="empty-icon-circle"><i class="fa-regular fa-comment"></i></div>
-            <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">No booking requests</h3>
-            <p style="font-size: 0.875rem; color: #64748b;">Student booking and viewing requests will appear here.</p>
+            <h3 style="font-size: 1.1rem; font-weight: 800; color: #1c1915; margin-bottom: 6px;">No booking requests</h3>
+            <p style="font-size: 0.875rem; color: #6f675e;">Student booking and viewing requests will appear here.</p>
           </div>
         `;
         return;
@@ -1886,16 +1899,16 @@
         }
 
         html += `
-          <div class="booking-card" onclick="openStudentProfile(${b.id})" title="Click to view student profile" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+          <div class="booking-card" onclick="openStudentProfile(${b.id})" title="Click to view student profile" style="background: #ffffff; border: 1px solid #e6dccb; border-radius: 16px; padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
             <div style="display: flex; align-items: center; gap: 1rem; min-width: 0; flex: 1;">
               <div class="avatar-circle">${escHtml(initialsOf(b.student_name))}</div>
               <div style="min-width: 0;">
                 <div style="font-size: 1.05rem; margin-bottom: 4px;">
                   <button class="student-link" onclick="event.stopPropagation(); openStudentProfile(${b.id})" title="View student profile">${escHtml(b.student_name)} (${escHtml(b.student_email)})</button>
                 </div>
-                <div style="font-size: 0.78rem; color: #94a3b8; margin-bottom: 6px;">Booked ${fmtDate(b.created_at)}</div>
-                <div style="font-size: 0.85rem; color: #64748b; margin-bottom: 6px;">Property: <strong>${escHtml(b.property_name)}</strong> | Room: <strong>${escHtml(b.room_name)}</strong> | Move-in: ${escHtml(b.move_in_date)}</div>
-                ${b.message ? `<div style="font-size: 0.82rem; color: #475569; font-style: italic;">"${escHtml(b.message)}"</div>` : ''}
+                <div style="font-size: 0.78rem; color: #a3988c; margin-bottom: 6px;">Booked ${fmtDate(b.created_at)}</div>
+                <div style="font-size: 0.85rem; color: #6f675e; margin-bottom: 6px;">Property: <strong>${escHtml(b.property_name)}</strong> | Room: <strong>${escHtml(b.room_name)}</strong> | Move-in: ${escHtml(b.move_in_date)}</div>
+                ${b.message ? `<div style="font-size: 0.82rem; color: #5c534b; font-style: italic;">"${escHtml(b.message)}"</div>` : ''}
               </div>
             </div>
             <div>${actionButtons}</div>
@@ -1917,7 +1930,7 @@
       countEl.textContent = list.length ? `(${list.length})` : '';
 
       if (list.length === 0) {
-        box.innerHTML = `<div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px; padding: 1.1rem; color: #64748b; font-size: 0.88rem; text-align: center;">No one has booked this property yet.</div>`;
+        box.innerHTML = `<div style="background: #f6f1e8; border: 1px dashed #d9ccb8; border-radius: 12px; padding: 1.1rem; color: #6f675e; font-size: 0.88rem; text-align: center;">No one has booked this property yet.</div>`;
         return;
       }
       box.innerHTML = list.map(b => `
@@ -1976,7 +1989,7 @@
 
         <div class="profile-actions">
           ${actions}
-          <button onclick="messageStudent(${b.id})" style="background: #eff6ff; color: #2563eb;"><i class="fa-regular fa-message"></i> Message student</button>
+          <button onclick="messageStudent(${b.id})" style="background: #fff6ee; color: #c4512c;"><i class="fa-regular fa-message"></i> Message student</button>
         </div>
       `;
       document.getElementById('studentProfileModal').classList.add('open');
@@ -1998,18 +2011,20 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeStudentProfile(); });
 
     async function respondBooking(bookingId, status) {
+      const sessionUser = JSON.parse(localStorage.getItem('df_user') || '{}');
       try {
         const response = await fetch(`/api/bookings/${bookingId}/status`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ status })
+          body: JSON.stringify({ status, owner_email: sessionUser.email, email: sessionUser.email })
         });
         const data = await response.json();
 
         if (response.ok && data.success) {
           closeStudentProfile();
-          alert(`Booking request has been ${status}.`);
+          alert(data.message || `Booking request has been ${status}.`);
           fetchOwnerBookings();
+          if (typeof fetchOwnerProperties === 'function') fetchOwnerProperties();
         } else {
           alert(data.message || 'Failed to update booking status.');
         }
@@ -2055,7 +2070,7 @@
       document.getElementById('badge-messages').textContent = threads.length;
 
       if (threads.length === 0) {
-        container.innerHTML = `<div style="padding: 1.5rem; color: #64748b; text-align: center; font-size: 0.85rem;">No conversations yet.</div>`;
+        container.innerHTML = `<div style="padding: 1.5rem; color: #6f675e; text-align: center; font-size: 0.85rem;">No conversations yet.</div>`;
         return;
       }
 
@@ -2063,10 +2078,10 @@
       threads.forEach(t => {
         const isSelected = activeChatPartnerEmail === t.partnerEmail && activeChatPropertyId === t.propertyId;
         html += `
-          <div onclick="selectConversation('${t.partnerEmail}', '${t.partnerName}', ${t.propertyId}, '${t.propertyName}')" style="padding: 1rem 1.25rem; border-bottom: 1px solid #f1f5f9; cursor: pointer; background: ${isSelected ? '#f1f5f9' : '#ffffff'};">
-            <div style="font-weight: 700; font-size: 0.9rem; color: #0f172a; margin-bottom: 2px;">${t.partnerName}</div>
-            <div style="font-size: 0.75rem; color: #2563eb; font-weight: 600; margin-bottom: 4px;"><i class="fa-solid fa-house"></i> ${t.propertyName}</div>
-            <div style="font-size: 0.82rem; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${t.lastMessage}</div>
+          <div onclick="selectConversation('${t.partnerEmail}', '${t.partnerName}', ${t.propertyId}, '${t.propertyName}')" style="padding: 1rem 1.25rem; border-bottom: 1px solid #efe6d6; cursor: pointer; background: ${isSelected ? '#efe6d6' : '#ffffff'};">
+            <div style="font-weight: 700; font-size: 0.9rem; color: #1c1915; margin-bottom: 2px;">${t.partnerName}</div>
+            <div style="font-size: 0.75rem; color: #c4512c; font-weight: 600; margin-bottom: 4px;"><i class="fa-solid fa-house"></i> ${t.propertyName}</div>
+            <div style="font-size: 0.82rem; color: #6f675e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${t.lastMessage}</div>
           </div>
         `;
       });
@@ -2076,7 +2091,7 @@
     function selectConversation(partnerEmail, partnerName, propertyId, propertyName) {
       activeChatPartnerEmail = partnerEmail;
       activeChatPropertyId = propertyId;
-      document.getElementById('activeChatHeader').innerHTML = `${partnerName} <span style="font-size: 0.78rem; font-weight: 500; color: #64748b; margin-left: 8px;">(${propertyName})</span>`;
+      document.getElementById('activeChatHeader').innerHTML = `${partnerName} <span style="font-size: 0.78rem; font-weight: 500; color: #6f675e; margin-left: 8px;">(${propertyName})</span>`;
       renderActiveChatMessages();
       renderConversationsSidebar();
     }
@@ -2089,7 +2104,7 @@
       });
 
       if (threadMsgs.length === 0) {
-        chatBox.innerHTML = `<div style="text-align: center; color: #94a3b8; margin: auto;">No messages in this thread yet.</div>`;
+        chatBox.innerHTML = `<div style="text-align: center; color: #a3988c; margin: auto;">No messages in this thread yet.</div>`;
         return;
       }
 
@@ -2098,8 +2113,8 @@
         const isMe = m.sender_email === sessionUser.email;
         html += `
           <div style="display: flex; flex-direction: column; align-items: ${isMe ? 'flex-end' : 'flex-start'};">
-            <div style="max-width: 75%; background: ${isMe ? '#2563eb' : '#ffffff'}; color: ${isMe ? '#ffffff' : '#0f172a'}; border: ${isMe ? 'none' : '1px solid #e2e8f0'}; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.9rem;">${m.message}</div>
-            <span style="font-size: 0.7rem; color: #94a3b8; margin-top: 4px;">${m.created_at}</span>
+            <div style="max-width: 75%; background: ${isMe ? '#c4512c' : '#ffffff'}; color: ${isMe ? '#ffffff' : '#1c1915'}; border: ${isMe ? 'none' : '1px solid #e6dccb'}; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.9rem;">${m.message}</div>
+            <span style="font-size: 0.7rem; color: #a3988c; margin-top: 4px;">${m.created_at}</span>
           </div>
         `;
       });
@@ -2147,9 +2162,10 @@
       document.getElementById('detailPropName').textContent = p.name;
       document.getElementById('detailPropType').textContent = p.type || 'Apartment';
       document.getElementById('detailPropLocation').textContent = p.address || 'Minglanilla, Cebu';
-      document.getElementById('detailPropSlots').textContent = `${p.availRooms || 1} slot left`;
+      const vacantN = parseInt(p.availRooms || '0', 10) || ((p.rooms || []).filter(r => r.selectable).length);
+      document.getElementById('detailPropSlots').textContent = vacantN > 0 ? `${vacantN} vacant room${vacantN === 1 ? '' : 's'}` : 'No vacant rooms';
       document.getElementById('detailPropRating').textContent = Number(p.reviewCount) > 0 ? `${Number(p.rating).toFixed(1)} (${p.reviewCount})` : 'New';
-      document.getElementById('detailPropSlotsBadge').textContent = `${p.availRooms || 1} slot left`;
+      document.getElementById('detailPropSlotsBadge').textContent = vacantN > 0 ? `${vacantN} vacant` : 'Full';
       document.getElementById('detailPropDesc').textContent = p.desc || 'No description provided.';
       document.getElementById('detailPropRules').textContent = p.rules || 'No specific rules.';
       document.getElementById('detailPropPrice').innerHTML = `${p.rent}<span>/month</span>`;
@@ -2195,14 +2211,75 @@
       let amHtml = '';
       const listAm = p.amenities && p.amenities.length > 0 ? p.amenities : ['WiFi', 'AC', 'Kitchen'];
       listAm.forEach(am => {
-        amHtml += `<div class="detail-amenity-pill"><i class="fa-solid fa-check" style="color: #2563eb;"></i> ${am}</div>`;
+        amHtml += `<div class="detail-amenity-pill"><i class="fa-solid fa-check" style="color: #c4512c;"></i> ${am}</div>`;
       });
       amContainer.innerHTML = amHtml;
 
       const ownerName = document.getElementById('nav-username').textContent;
       document.getElementById('detailOwnerName').textContent = ownerName;
 
+      renderOwnerRoomInventory(p);
       switchTab('property-detail');
+    }
+
+    function renderOwnerRoomInventory(p) {
+      const host = document.getElementById('detailRoomsInventory');
+      const summary = document.getElementById('detailRoomsSummary');
+      if (!host) return;
+      const rooms = (p.rooms || []).filter(rm => (rm.status || '') !== 'unavailable' || true);
+      const visible = (p.rooms || []).filter(rm => (rm.display_status || rm.status) !== 'unavailable');
+      const list = visible.length ? visible : (p.rooms || []);
+      if (!list.length) {
+        host.innerHTML = '<p style="color:#6f675e;font-size:0.9rem;">No rooms yet. Set Total Rooms when editing this listing, then save.</p>';
+        if (summary) summary.textContent = '';
+        return;
+      }
+      const counts = { vacant: 0, pending: 0, reserved: 0, occupied: 0, unavailable: 0 };
+      list.forEach(rm => {
+        const key = (rm.display_status || rm.status || 'vacant').toLowerCase();
+        counts[key] = (counts[key] || 0) + 1;
+      });
+      if (summary) {
+        summary.textContent = `${list.length} rooms · ${counts.vacant || 0} vacant (bookable) · ${counts.pending || 0} pending · ${counts.reserved || 0} reserved · ${counts.occupied || 0} occupied`;
+      }
+      const colors = {
+        vacant: ['#059669', '#d1fae5'],
+        pending: ['#d97706', '#fef3c7'],
+        reserved: ['#d97706', '#fef3c7'],
+        occupied: ['#1b4334', '#d8f3dc'],
+        unavailable: ['#6f675e', '#e6dccb']
+      };
+      host.innerHTML = list.map(rm => {
+        const st = (rm.display_status || rm.status || 'vacant').toLowerCase();
+        const raw = (rm.status || 'vacant').toLowerCase();
+        const [fg, bg] = colors[st] || colors.vacant;
+        const canToggle = (raw === 'vacant' && !rm.booking_status) || raw === 'unavailable';
+        const next = raw === 'unavailable' ? 'vacant' : 'unavailable';
+        const nextLabel = next === 'unavailable' ? 'Mark unavailable' : 'Mark vacant again';
+        return `
+          <div style="border:1px solid #e6dccb;border-radius:12px;padding:0.85rem;background:#fff;">
+            <div style="font-weight:700;margin-bottom:4px;">${escHtml(rm.room_name)}</div>
+            <span style="display:inline-block;background:${bg};color:${fg};font-size:0.72rem;font-weight:800;padding:3px 8px;border-radius:999px;text-transform:capitalize;">${escHtml(st)}</span>
+            ${canToggle ? `<button type="button" onclick="updateRoomStatus(${p.id},${rm.id},'${next}')" style="display:block;margin-top:8px;width:100%;border:1px solid #e6dccb;background:#fffdf8;border-radius:8px;padding:0.4rem;font-size:0.75rem;font-weight:700;cursor:pointer;font-family:inherit;">${nextLabel}</button>` : `<div style="margin-top:8px;font-size:0.72rem;color:#6f675e;">Locked by booking flow</div>`}
+          </div>`;
+      }).join('');
+    }
+
+    async function updateRoomStatus(propId, roomId, status) {
+      const sessionUser = JSON.parse(localStorage.getItem('df_user') || '{}');
+      try {
+        const res = await fetch(`/api/properties/${propId}/rooms/${roomId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status, owner_email: sessionUser.email })
+        });
+        const data = await res.json();
+        if (!data.success) { alert(data.message || 'Could not update room.'); return; }
+        const p = customProperties.find(x => Number(x.id) === Number(propId));
+        if (p) { p.rooms = data.rooms; renderOwnerRoomInventory(p); }
+        alert(data.message || 'Room updated.');
+        fetchOwnerProperties && fetchOwnerProperties();
+      } catch (e) { alert('Could not connect to the server.'); }
     }
 
     function triggerPhotoUpload() {
@@ -2262,7 +2339,7 @@
       document.getElementById('newPropName').value = '';
       document.getElementById('newPropType').value = 'Apartment';
       document.getElementById('newPropRent').value = '';
-      document.getElementById('newPropTotalRooms').value = '';
+      document.getElementById('newPropTotalRooms').value = '5';
       document.getElementById('newPropAvailRooms').value = '';
       document.getElementById('newPropDesc').value = '';
       document.getElementById('newPropRules').value = '';
@@ -2284,8 +2361,8 @@
       document.getElementById('newPropName').value = p.name || '';
       document.getElementById('newPropType').value = p.type || 'Apartment';
       document.getElementById('newPropRent').value = p.rawRent || '';
-      document.getElementById('newPropTotalRooms').value = p.totalRooms || '10';
-      document.getElementById('newPropAvailRooms').value = p.availRooms || '5';
+      document.getElementById('newPropTotalRooms').value = p.totalRooms || '5';
+      document.getElementById('newPropAvailRooms').value = '';
       document.getElementById('newPropDesc').value = p.desc || '';
       document.getElementById('newPropRules').value = p.rules || '';
 
@@ -2324,8 +2401,7 @@
       const rentVal = document.getElementById('newPropRent').value.trim();
       const lat = parseFloat(document.getElementById('propLat').value);
       const lon = parseFloat(document.getElementById('propLon').value);
-      const totalRooms = document.getElementById('newPropTotalRooms').value.trim() || '10';
-      const availRooms = document.getElementById('newPropAvailRooms').value.trim() || '5';
+      const totalRooms = document.getElementById('newPropTotalRooms').value.trim() || '1';
       const desc = document.getElementById('newPropDesc').value.trim();
       const rules = document.getElementById('newPropRules').value.trim();
 
@@ -2338,8 +2414,11 @@
         alert('Please fill out the required property name and monthly rent fields.');
         return;
       }
+      if (parseInt(totalRooms, 10) < 1) {
+        alert('Please enter at least 1 room.');
+        return;
+      }
 
-      const occupiedCount = parseInt(totalRooms) - parseInt(availRooms);
       const propertyPayload = {
         id: propId,
         owner_email: ownerEmail,
@@ -2351,8 +2430,6 @@
         rawRent: rentVal,
         rent: `₱${parseInt(rentVal).toLocaleString()}`,
         totalRooms,
-        availRooms,
-        occupied: `${Math.max(0, occupiedCount)}/${totalRooms}`,
         desc,
         rules,
         amenities: selectedAmenities,

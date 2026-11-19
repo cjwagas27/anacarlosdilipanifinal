@@ -146,9 +146,62 @@ def init_db():
     if 'status' not in existing_cols:
         cursor.execute("ALTER TABLE properties ADD COLUMN status TEXT DEFAULT 'pending'")
         cursor.execute("UPDATE properties SET status = 'approved'")
-    for col, ddl in (('review_note', 'TEXT'), ('created_at', 'TEXT'), ('reviewed_at', 'TEXT')):
+    for col, ddl in (('review_note', 'TEXT'), ('created_at', 'TEXT'), ('reviewed_at', 'TEXT'),
+                     ('verified', 'INTEGER DEFAULT 0')):
         if col not in existing_cols:
             cursor.execute(f'ALTER TABLE properties ADD COLUMN {col} {ddl}')
+
+    # Room / bed-space inventory (vacant | reserved | occupied | unavailable)
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS rooms (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            property_id INTEGER NOT NULL,
+            room_name TEXT NOT NULL,
+            capacity INTEGER DEFAULT 1,
+            status TEXT DEFAULT 'vacant',
+            UNIQUE(property_id, room_name),
+            FOREIGN KEY (property_id) REFERENCES properties (id)
+        )
+    ''')
+
+    # Student accommodation preferences for MAUT matching
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS student_preferences (
+            user_email TEXT PRIMARY KEY,
+            budget_min INTEGER DEFAULT 0,
+            budget_max INTEGER DEFAULT 5000,
+            preferred_barangay TEXT DEFAULT '',
+            room_type TEXT DEFAULT '',
+            amenities TEXT DEFAULT '',
+            occupants INTEGER DEFAULT 1,
+            weight_price REAL DEFAULT 0.30,
+            weight_location REAL DEFAULT 0.25,
+            weight_amenities REAL DEFAULT 0.20,
+            weight_availability REAL DEFAULT 0.15,
+            weight_rating REAL DEFAULT 0.10,
+            FOREIGN KEY (user_email) REFERENCES users (email)
+        )
+    ''')
+
+    # Report misleading / outdated listings
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS listing_reports (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            property_id INTEGER NOT NULL,
+            reporter_email TEXT NOT NULL,
+            reason TEXT NOT NULL,
+            details TEXT,
+            status TEXT DEFAULT 'open',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (property_id) REFERENCES properties (id)
+        )
+    ''')
+
+    # Seed / migrate room inventory (also renames legacy Room 101 → Room 1)
+    cursor.execute('SELECT id, total_rooms FROM properties')
+    for prop_id, total_rooms in cursor.fetchall():
+        sync_property_rooms(cursor, prop_id, total_rooms)
+        refresh_property_availability(cursor, prop_id)
 
     # Seed / refresh the admin account in the database
     admin_hash = generate_password_hash(ADMIN_PASSWORD)
@@ -163,6 +216,197 @@ def init_db():
 
     conn.commit()
     conn.close()
+
+
+def sync_property_rooms(cursor, prop_id, total_rooms):
+    """Create Room 1..N from total rooms. Availability is derived from status, not a second count."""
+    try:
+        n = max(int(total_rooms or 1), 1)
+    except (TypeError, ValueError):
+        n = 1
+
+    # Migrate legacy "Room 101" naming → "Room 1"
+    for i in range(1, 80):
+        old_name = f'Room {100 + i}'
+        new_name = f'Room {i}'
+        cursor.execute(
+            'SELECT id FROM rooms WHERE property_id = ? AND room_name = ?',
+            (prop_id, old_name)
+        )
+        if not cursor.fetchone():
+            continue
+        cursor.execute(
+            'SELECT id FROM rooms WHERE property_id = ? AND room_name = ?',
+            (prop_id, new_name)
+        )
+        if cursor.fetchone():
+            continue
+        cursor.execute(
+            'UPDATE rooms SET room_name = ? WHERE property_id = ? AND room_name = ?',
+            (new_name, prop_id, old_name)
+        )
+        cursor.execute(
+            'UPDATE bookings SET room_name = ? WHERE property_id = ? AND room_name = ?',
+            (new_name, prop_id, old_name)
+        )
+
+    names = [f'Room {i}' for i in range(1, n + 1)]
+    for room_name in names:
+        cursor.execute(
+            'INSERT OR IGNORE INTO rooms (property_id, room_name, capacity, status) VALUES (?, ?, 1, ?)',
+            (prop_id, room_name, 'vacant')
+        )
+        # If owner raised total again, bring soft-removed rooms back as vacant
+        cursor.execute(
+            "UPDATE rooms SET status = 'vacant' WHERE property_id = ? AND room_name = ? AND status = 'unavailable'",
+            (prop_id, room_name)
+        )
+    # Soft-remove rooms beyond the new total (only vacant ones — keep reserved/occupied history)
+    cursor.execute(
+        "UPDATE rooms SET status = 'unavailable' WHERE property_id = ? AND room_name NOT IN ("
+        + ','.join(['?'] * n) + ") AND status = 'vacant'",
+        [prop_id] + names
+    )
+
+
+def refresh_property_availability(cursor, prop_id):
+    """Recompute property-level avail/occupied from room inventory (bookable = vacant with no active hold)."""
+    cursor.execute(
+        "SELECT COUNT(*) FROM rooms WHERE property_id = ? AND status != 'unavailable'",
+        (prop_id,)
+    )
+    total = cursor.fetchone()[0] or 0
+    cursor.execute('''
+        SELECT COUNT(*) FROM rooms r
+        WHERE r.property_id = ? AND r.status = 'vacant'
+          AND NOT EXISTS (
+            SELECT 1 FROM bookings b
+            WHERE b.property_id = r.property_id AND b.room_name = r.room_name
+              AND b.status IN ('pending', 'approved', 'confirmed')
+          )
+    ''', (prop_id,))
+    vacant = cursor.fetchone()[0] or 0
+    occupied = max(total - vacant, 0)
+    cursor.execute(
+        'UPDATE properties SET total_rooms = ?, avail_rooms = ?, occupied = ? WHERE id = ?',
+        (str(total), str(vacant), f'{occupied}/{total}', prop_id)
+    )
+
+
+def get_rooms_for_property(cursor, prop_id):
+    """Return each room with live status + whether a student can still select it."""
+    cursor.execute('''
+        SELECT r.id, r.room_name, r.capacity, r.status,
+               (SELECT b.status FROM bookings b
+                WHERE b.property_id = r.property_id AND b.room_name = r.room_name
+                  AND b.status IN ('pending', 'approved', 'confirmed')
+                ORDER BY b.id DESC LIMIT 1) AS booking_status
+        FROM rooms r
+        WHERE r.property_id = ?
+        ORDER BY CAST(REPLACE(r.room_name, 'Room ', '') AS INTEGER), r.room_name
+    ''', (prop_id,))
+    rooms = []
+    for r in cursor.fetchall():
+        status = (r[3] or 'vacant').lower()
+        booking_status = r[4]
+        selectable = status == 'vacant' and not booking_status
+        display = status
+        if status == 'vacant' and booking_status == 'pending':
+            display = 'pending'
+        elif status == 'vacant' and booking_status == 'approved':
+            display = 'reserved'
+        elif booking_status == 'confirmed' or status == 'occupied':
+            display = 'occupied'
+        rooms.append({
+            'id': r[0],
+            'room_name': r[1],
+            'capacity': r[2] or 1,
+            'status': status,
+            'display_status': display,
+            'booking_status': booking_status,
+            'selectable': selectable
+        })
+    return rooms
+
+
+def score_property_maut(prop, prefs):
+    """Multi-Attribute Utility Theory score using student preference weights."""
+    rent = float(prop.get('rawRent') or 0)
+    budget_min = float(prefs.get('budget_min') or 0)
+    budget_max = float(prefs.get('budget_max') or 5000)
+    if budget_max <= 0:
+        budget_max = 5000
+
+    # Affordability: 1.0 inside budget, decays above max
+    if rent <= 0:
+        price_u = 0.3
+    elif rent <= budget_max:
+        # Prefer values nearer the student's budget mid-point without punishing cheap rooms too hard
+        mid = (budget_min + budget_max) / 2 or budget_max
+        price_u = 1.0 - min(abs(rent - mid) / max(budget_max, 1), 0.45)
+    else:
+        over = (rent - budget_max) / max(budget_max, 1)
+        price_u = max(0.0, 0.55 - over)
+
+    preferred_brgy = (prefs.get('preferred_barangay') or '').strip().lower()
+    barangay = (prop.get('barangay') or '').strip().lower()
+    address = (prop.get('address') or '').strip().lower()
+    if not preferred_brgy:
+        location_u = 0.7
+    elif preferred_brgy in barangay or preferred_brgy in address:
+        location_u = 1.0
+    else:
+        location_u = 0.35
+
+    wanted = [a.strip() for a in (prefs.get('amenities') or '').split(',') if a.strip()]
+    have = prop.get('amenities') or []
+    if not wanted:
+        amenities_u = 0.65
+    else:
+        hits = sum(1 for a in wanted if any(a.lower() == h.lower() for h in have))
+        amenities_u = hits / len(wanted)
+
+    try:
+        total = max(int(prop.get('totalRooms') or 1), 1)
+        avail = max(min(int(prop.get('availRooms') or 0), total), 0)
+    except (TypeError, ValueError):
+        total, avail = 1, 0
+    availability_u = avail / total
+
+    rating_u = min(max(float(prop.get('rating') or 0) / 5.0, 0), 1)
+    if int(prop.get('reviewCount') or 0) == 0:
+        rating_u = 0.45  # neutral for unrated listings
+
+    preferred_type = (prefs.get('room_type') or '').strip().lower()
+    ptype = (prop.get('type') or '').strip().lower()
+    type_bonus = 0.05 if preferred_type and preferred_type in ptype else 0.0
+
+    weights = {
+        'price': float(prefs.get('weight_price') or 0.30),
+        'location': float(prefs.get('weight_location') or 0.25),
+        'amenities': float(prefs.get('weight_amenities') or 0.20),
+        'availability': float(prefs.get('weight_availability') or 0.15),
+        'rating': float(prefs.get('weight_rating') or 0.10),
+    }
+    wsum = sum(weights.values()) or 1.0
+    for k in weights:
+        weights[k] /= wsum
+
+    score = (
+        weights['price'] * price_u
+        + weights['location'] * location_u
+        + weights['amenities'] * amenities_u
+        + weights['availability'] * availability_u
+        + weights['rating'] * rating_u
+        + type_bonus
+    )
+    return round(min(score, 1.0) * 100, 1), {
+        'price': round(price_u, 3),
+        'location': round(location_u, 3),
+        'amenities': round(amenities_u, 3),
+        'availability': round(availability_u, 3),
+        'rating': round(rating_u, 3),
+    }
 
 @app.route('/')
 def serve_homepage():
@@ -282,7 +526,7 @@ def get_properties():
         SELECT p.id, p.owner_email, u.fullname, p.name, p.type, p.address, p.barangay, 
                p.raw_rent, p.rent, p.total_rooms, p.avail_rooms, p.occupied, 
                p.description, p.rules, p.amenities, p.image, p.lat, p.lon, p.images,
-               p.status, p.review_note, p.created_at,
+               p.status, p.review_note, p.created_at, COALESCE(p.verified, 0),
                rv.avg_rating, rv.review_count, rv.rec_count
         FROM properties p
         LEFT JOIN users u ON p.owner_email = u.email
@@ -300,10 +544,13 @@ def get_properties():
         cursor.execute(query + " WHERE p.status = 'approved' ORDER BY p.id DESC")
     
     rows = cursor.fetchall()
-    conn.close()
 
     props = []
     for r in rows:
+        sync_property_rooms(cursor, r[0], r[9])
+        rooms = get_rooms_for_property(cursor, r[0])
+        active_rooms = [rm for rm in rooms if rm['status'] != 'unavailable']
+        vacant = sum(1 for rm in rooms if rm.get('selectable'))
         props.append({
             'id': r[0],
             'owner_email': r[1],
@@ -314,8 +561,8 @@ def get_properties():
             'barangay': r[6],
             'rawRent': r[7],
             'rent': r[8],
-            'totalRooms': r[9],
-            'availRooms': r[10],
+            'totalRooms': str(len(active_rooms) or r[9] or 0),
+            'availRooms': str(vacant if rooms else r[10]),
             'occupied': r[11],
             'desc': r[12],
             'rules': r[13],
@@ -327,10 +574,13 @@ def get_properties():
             'status': r[19] or 'approved',
             'reviewNote': r[20] or '',
             'createdAt': r[21],
-            'rating': round(r[22], 1) if r[22] else 0,
-            'reviewCount': r[23] or 0,
-            'recommendPct': round(100 * (r[24] or 0) / r[23]) if r[23] else 0
+            'verified': bool(r[22]),
+            'rating': round(r[23], 1) if r[23] else 0,
+            'reviewCount': r[24] or 0,
+            'recommendPct': round(100 * (r[25] or 0) / r[24]) if r[24] else 0,
+            'rooms': rooms
         })
+    conn.close()
     return jsonify({'success': True, 'properties': props})
 
 @app.route('/api/properties', methods=['POST'])
@@ -349,9 +599,10 @@ def save_property():
     barangay = data.get('barangay') or 'Minglanilla'
     raw_rent = str(data.get('rawRent') or '').strip()
     rent = data.get('rent') or ''
-    total_rooms = str(data.get('totalRooms') or '10')
-    avail_rooms = str(data.get('availRooms') or '5')
-    occupied = data.get('occupied') or '0/' + total_rooms
+    # Owner only sets how many rooms exist. Vacant/available is computed from room inventory.
+    total_rooms = str(data.get('totalRooms') or '1')
+    avail_rooms = total_rooms  # placeholder until sync + refresh overwrite from inventory
+    occupied = '0/' + total_rooms
     desc = data.get('desc') or ''
     rules = data.get('rules') or ''
     amenities = ','.join(data.get('amenities') or [])
@@ -375,12 +626,17 @@ def save_property():
                     review_note = CASE WHEN status = 'rejected' THEN NULL ELSE review_note END
                 WHERE id=? AND owner_email=?
             ''', (name, ptype, address, barangay, raw_rent, rent, total_rooms, avail_rooms, occupied, desc, rules, amenities, image, lat, lon, images_json, prop_id, owner_email))
+            sync_property_rooms(cursor, prop_id, total_rooms)
+            refresh_property_availability(cursor, prop_id)
             message = 'Property updated successfully!'
         else:
             cursor.execute('''
-                INSERT INTO properties (owner_email, name, type, address, barangay, raw_rent, rent, total_rooms, avail_rooms, occupied, description, rules, amenities, image, lat, lon, images, status, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', datetime('now'))
+                INSERT INTO properties (owner_email, name, type, address, barangay, raw_rent, rent, total_rooms, avail_rooms, occupied, description, rules, amenities, image, lat, lon, images, status, created_at, verified)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', datetime('now'), 0)
             ''', (owner_email, name, ptype, address, barangay, raw_rent, rent, total_rooms, avail_rooms, occupied, desc, rules, amenities, image, lat, lon, images_json))
+            new_id = cursor.lastrowid
+            sync_property_rooms(cursor, new_id, total_rooms)
+            refresh_property_availability(cursor, new_id)
             message = 'Listing submitted! It will appear publicly once the admin approves it.'
 
         conn.commit()
@@ -428,7 +684,7 @@ def get_property_reviews(prop_id):
         SELECT r.id, r.user_email, COALESCE(u.fullname, r.user_name), r.rating, r.comment, r.recommend,
                r.created_at, r.updated_at,
                EXISTS(SELECT 1 FROM bookings b WHERE b.property_id = r.property_id
-                      AND b.student_email = r.user_email AND b.status = 'approved')
+                      AND b.student_email = r.user_email AND b.status IN ('approved', 'confirmed'))
         FROM reviews r
         LEFT JOIN users u ON u.email = r.user_email
         WHERE r.property_id = ?
@@ -577,16 +833,16 @@ def admin_get_properties():
     cursor.execute('''
         SELECT p.id, p.owner_email, u.fullname, p.name, p.type, p.address, p.raw_rent, p.rent,
                p.total_rooms, p.avail_rooms, p.occupied, p.description, p.rules, p.amenities,
-               p.image, p.lat, p.lon, p.images, p.status, p.review_note, p.created_at, p.reviewed_at
+               p.image, p.lat, p.lon, p.images, p.status, p.review_note, p.created_at, p.reviewed_at,
+               COALESCE(p.verified, 0)
         FROM properties p
         LEFT JOIN users u ON p.owner_email = u.email
         ORDER BY CASE p.status WHEN 'pending' THEN 0 ELSE 1 END, p.id DESC
     ''')
     rows = cursor.fetchall()
-    conn.close()
-
     props = []
     for r in rows:
+        rooms = get_rooms_for_property(cursor, r[0])
         props.append({
             'id': r[0], 'owner_email': r[1], 'owner_name': r[2] or 'Property Owner',
             'name': r[3], 'type': r[4], 'address': r[5], 'rawRent': r[6], 'rent': r[7],
@@ -596,8 +852,11 @@ def admin_get_properties():
             'image': r[14], 'lat': r[15], 'lon': r[16],
             'images': json.loads(r[17]) if r[17] else ([r[14]] if r[14] else []),
             'status': r[18] or 'approved', 'reviewNote': r[19] or '',
-            'createdAt': r[20], 'reviewedAt': r[21]
+            'createdAt': r[20], 'reviewedAt': r[21],
+            'verified': bool(r[22]),
+            'rooms': rooms
         })
+    conn.close()
     return jsonify({'success': True, 'properties': props})
 
 @app.route('/api/admin/properties/<int:prop_id>/review', methods=['POST'])
@@ -606,22 +865,32 @@ def admin_review_property(prop_id):
     data = request.json or {}
     status = data.get('status')
     note = (data.get('note') or '').strip()
+    verified = 1 if data.get('verified') else 0
 
     if status not in ('approved', 'rejected', 'pending'):
         return jsonify({'success': False, 'message': 'Invalid status.'}), 400
 
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
-    cursor.execute(
-        "UPDATE properties SET status = ?, review_note = ?, reviewed_at = datetime('now') WHERE id = ?",
-        (status, note if status == 'rejected' else None, prop_id))
+    # Approving can also mark the listing as verified (trust badge for students)
+    if status == 'approved':
+        cursor.execute(
+            "UPDATE properties SET status = ?, review_note = NULL, reviewed_at = datetime('now'), verified = ? WHERE id = ?",
+            (status, verified, prop_id))
+    else:
+        cursor.execute(
+            "UPDATE properties SET status = ?, review_note = ?, reviewed_at = datetime('now'), verified = 0 WHERE id = ?",
+            (status, note if status == 'rejected' else None, prop_id))
     changed = cursor.rowcount
     conn.commit()
     conn.close()
 
     if not changed:
         return jsonify({'success': False, 'message': 'Listing not found.'}), 404
-    return jsonify({'success': True, 'message': f'Listing {status}.'})
+    msg = f'Listing {status}.'
+    if status == 'approved' and verified:
+        msg = 'Listing approved and marked verified.'
+    return jsonify({'success': True, 'message': msg})
 
 @app.route('/api/admin/users', methods=['GET'])
 @admin_required
@@ -667,15 +936,58 @@ def create_booking():
     message = data.get('message', '')
     rent = data.get('rent')
 
-    if not property_id or not student_email or not owner_email or not move_in_date:
+    if not property_id or not student_email or not owner_email or not move_in_date or not room_name:
         return jsonify({'success': False, 'message': 'Missing required booking details.'}), 400
 
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
+
+    # Ensure room inventory exists, then block requests for non-vacant rooms
+    cursor.execute('SELECT total_rooms FROM properties WHERE id = ?', (property_id,))
+    prop_row = cursor.fetchone()
+    if not prop_row:
+        conn.close()
+        return jsonify({'success': False, 'message': 'Property not found.'}), 404
+    sync_property_rooms(cursor, property_id, prop_row[0])
+    cursor.execute(
+        'SELECT status FROM rooms WHERE property_id = ? AND room_name = ?',
+        (property_id, room_name)
+    )
+    room_row = cursor.fetchone()
+    if not room_row:
+        # create the requested room if owner never synced inventory
+        cursor.execute(
+            "INSERT INTO rooms (property_id, room_name, capacity, status) VALUES (?, ?, 1, 'vacant')",
+            (property_id, room_name)
+        )
+        room_status = 'vacant'
+    else:
+        room_status = room_row[0]
+
+    if room_status != 'vacant':
+        conn.close()
+        return jsonify({
+            'success': False,
+            'message': f'{room_name} is currently {room_status}. Choose another vacant room.'
+        }), 409
+
+    # Conflict prevention: another active request already holds this room
+    cursor.execute('''
+        SELECT id FROM bookings
+        WHERE property_id = ? AND room_name = ? AND status IN ('pending', 'approved', 'confirmed')
+    ''', (property_id, room_name))
+    if cursor.fetchone():
+        conn.close()
+        return jsonify({
+            'success': False,
+            'message': f'{room_name} already has an active booking request. Pick a different room.'
+        }), 409
+
     cursor.execute('''
         INSERT INTO bookings (property_id, property_name, room_name, student_name, student_email, owner_email, move_in_date, message, rent, status)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
     ''', (property_id, property_name, room_name, student_name, student_email, owner_email, move_in_date, message, rent))
+    refresh_property_availability(cursor, property_id)
     conn.commit()
     conn.close()
 
@@ -759,23 +1071,100 @@ def get_bookings():
 
 @app.route('/api/bookings/<int:booking_id>/status', methods=['POST'])
 def update_booking_status(booking_id):
-    data = request.json
+    """Owner actions: approve (reserve room) or reject. Student: confirm after approval."""
+    data = request.json or {}
     new_status = data.get('status')
+    actor_email = (data.get('email') or data.get('owner_email') or data.get('student_email') or '').strip().lower()
 
-    if new_status not in ['approved', 'rejected']:
+    if new_status not in ['approved', 'rejected', 'confirmed']:
         return jsonify({'success': False, 'message': 'Invalid status.'}), 400
 
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
-    cursor.execute('UPDATE bookings SET status = ? WHERE id = ?', (new_status, booking_id))
+    cursor.execute(
+        'SELECT property_id, room_name, student_email, owner_email, status FROM bookings WHERE id = ?',
+        (booking_id,)
+    )
+    row = cursor.fetchone()
+    if not row:
+        conn.close()
+        return jsonify({'success': False, 'message': 'Booking not found.'}), 404
+
+    property_id, room_name, student_email, owner_email, current = row
+    student_email = (student_email or '').strip().lower()
+    owner_email = (owner_email or '').strip().lower()
+
+    if new_status == 'approved':
+        if actor_email and actor_email != owner_email:
+            conn.close()
+            return jsonify({'success': False, 'message': 'Only the property owner can approve requests.'}), 403
+        if current != 'pending':
+            conn.close()
+            return jsonify({'success': False, 'message': f'Only pending requests can be approved (now {current}).'}), 400
+
+        cursor.execute(
+            'SELECT status FROM rooms WHERE property_id = ? AND room_name = ?',
+            (property_id, room_name)
+        )
+        room = cursor.fetchone()
+        if room and room[0] != 'vacant':
+            conn.close()
+            return jsonify({'success': False, 'message': f'{room_name} is no longer vacant.'}), 409
+
+        # Reserve the room and auto-reject competing pending requests for the same room
+        cursor.execute(
+            "UPDATE rooms SET status = 'reserved' WHERE property_id = ? AND room_name = ?",
+            (property_id, room_name)
+        )
+        cursor.execute('''
+            UPDATE bookings SET status = 'rejected'
+            WHERE property_id = ? AND room_name = ? AND id != ? AND status = 'pending'
+        ''', (property_id, room_name, booking_id))
+        cursor.execute('UPDATE bookings SET status = ? WHERE id = ?', ('approved', booking_id))
+        refresh_property_availability(cursor, property_id)
+        conn.commit()
+        conn.close()
+        return jsonify({'success': True, 'message': 'Booking approved. Room is now reserved pending student confirmation.'})
+
+    if new_status == 'rejected':
+        if actor_email and actor_email != owner_email:
+            conn.close()
+            return jsonify({'success': False, 'message': 'Only the property owner can reject requests.'}), 403
+        if current in ('confirmed',):
+            conn.close()
+            return jsonify({'success': False, 'message': 'Confirmed bookings cannot be rejected here.'}), 400
+        cursor.execute('UPDATE bookings SET status = ? WHERE id = ?', ('rejected', booking_id))
+        if current == 'approved':
+            cursor.execute(
+                "UPDATE rooms SET status = 'vacant' WHERE property_id = ? AND room_name = ? AND status = 'reserved'",
+                (property_id, room_name)
+            )
+            refresh_property_availability(cursor, property_id)
+        conn.commit()
+        conn.close()
+        return jsonify({'success': True, 'message': 'Booking request rejected.'})
+
+    # confirmed — student accepts the reservation offer
+    if actor_email and actor_email != student_email:
+        conn.close()
+        return jsonify({'success': False, 'message': 'Only the student can confirm this booking.'}), 403
+    if current != 'approved':
+        conn.close()
+        return jsonify({'success': False, 'message': 'Only an approved reservation can be confirmed.'}), 400
+
+    cursor.execute('UPDATE bookings SET status = ? WHERE id = ?', ('confirmed', booking_id))
+    cursor.execute(
+        "UPDATE rooms SET status = 'occupied' WHERE property_id = ? AND room_name = ?",
+        (property_id, room_name)
+    )
+    refresh_property_availability(cursor, property_id)
     conn.commit()
     conn.close()
-
-    return jsonify({'success': True, 'message': f'Booking request {new_status}!'})
+    return jsonify({'success': True, 'message': 'Booking confirmed. Room is now marked occupied.'})
 
 @app.route('/api/bookings/<int:booking_id>/cancel', methods=['POST'])
 def cancel_booking(booking_id):
-    """A student cancels their own booking. Only allowed while it is still pending (not yet approved)."""
+    """Student can cancel pending or approved (not yet confirmed) bookings."""
     data = request.json or {}
     student_email = (data.get('student_email') or '').strip().lower()
     if not student_email:
@@ -783,7 +1172,10 @@ def cancel_booking(booking_id):
 
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
-    cursor.execute('SELECT student_email, status FROM bookings WHERE id = ?', (booking_id,))
+    cursor.execute(
+        'SELECT student_email, status, property_id, room_name FROM bookings WHERE id = ?',
+        (booking_id,)
+    )
     row = cursor.fetchone()
 
     if not row:
@@ -792,18 +1184,275 @@ def cancel_booking(booking_id):
     if row[0].strip().lower() != student_email:
         conn.close()
         return jsonify({'success': False, 'message': 'You can only cancel your own bookings.'}), 403
-    if row[1] != 'pending':
+    if row[1] not in ('pending', 'approved'):
         conn.close()
-        if row[1] == 'approved':
-            msg = 'This booking was already approved by the owner and can no longer be cancelled.'
-        else:
-            msg = f'This booking is already {row[1]} and cannot be cancelled.'
-        return jsonify({'success': False, 'message': msg}), 400
+        return jsonify({'success': False, 'message': f'This booking is already {row[1]} and cannot be cancelled.'}), 400
 
+    was_approved = row[1] == 'approved'
     cursor.execute("UPDATE bookings SET status = 'cancelled' WHERE id = ?", (booking_id,))
+    if was_approved:
+        cursor.execute(
+            "UPDATE rooms SET status = 'vacant' WHERE property_id = ? AND room_name = ? AND status = 'reserved'",
+            (row[2], row[3])
+        )
+        refresh_property_availability(cursor, row[2])
     conn.commit()
     conn.close()
     return jsonify({'success': True, 'message': 'Booking cancelled.'})
+
+# ── PREFERENCES + MAUT RECOMMENDATION ─────────────────────
+@app.route('/api/preferences', methods=['GET'])
+def get_preferences():
+    email = request.args.get('email', '').strip().lower()
+    if not email:
+        return jsonify({'success': False, 'message': 'Email required.'}), 400
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM student_preferences WHERE user_email = ?', (email,))
+    row = cursor.fetchone()
+    conn.close()
+    if not row:
+        return jsonify({'success': True, 'preferences': {
+            'budget_min': 0, 'budget_max': 5000, 'preferred_barangay': '',
+            'room_type': '', 'amenities': '', 'occupants': 1,
+            'weight_price': 0.30, 'weight_location': 0.25, 'weight_amenities': 0.20,
+            'weight_availability': 0.15, 'weight_rating': 0.10
+        }, 'is_default': True})
+    return jsonify({'success': True, 'preferences': {
+        'budget_min': row[1], 'budget_max': row[2], 'preferred_barangay': row[3] or '',
+        'room_type': row[4] or '', 'amenities': row[5] or '', 'occupants': row[6] or 1,
+        'weight_price': row[7], 'weight_location': row[8], 'weight_amenities': row[9],
+        'weight_availability': row[10], 'weight_rating': row[11]
+    }, 'is_default': False})
+
+@app.route('/api/preferences', methods=['POST'])
+def save_preferences():
+    data = request.json or {}
+    email = (data.get('email') or '').strip().lower()
+    if not email:
+        return jsonify({'success': False, 'message': 'Email required.'}), 400
+
+    amenities = data.get('amenities')
+    if isinstance(amenities, list):
+        amenities = ','.join(amenities)
+    amenities = amenities or ''
+
+    vals = (
+        email,
+        int(data.get('budget_min') or 0),
+        int(data.get('budget_max') or 5000),
+        (data.get('preferred_barangay') or '').strip(),
+        (data.get('room_type') or '').strip(),
+        amenities,
+        int(data.get('occupants') or 1),
+        float(data.get('weight_price') or 0.30),
+        float(data.get('weight_location') or 0.25),
+        float(data.get('weight_amenities') or 0.20),
+        float(data.get('weight_availability') or 0.15),
+        float(data.get('weight_rating') or 0.10),
+    )
+
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO student_preferences (
+            user_email, budget_min, budget_max, preferred_barangay, room_type, amenities, occupants,
+            weight_price, weight_location, weight_amenities, weight_availability, weight_rating
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(user_email) DO UPDATE SET
+            budget_min=excluded.budget_min, budget_max=excluded.budget_max,
+            preferred_barangay=excluded.preferred_barangay, room_type=excluded.room_type,
+            amenities=excluded.amenities, occupants=excluded.occupants,
+            weight_price=excluded.weight_price, weight_location=excluded.weight_location,
+            weight_amenities=excluded.weight_amenities, weight_availability=excluded.weight_availability,
+            weight_rating=excluded.weight_rating
+    ''', vals)
+    conn.commit()
+    conn.close()
+    return jsonify({'success': True, 'message': 'Preferences saved. Recommendations will update.'})
+
+@app.route('/api/recommend', methods=['GET'])
+def recommend_properties():
+    """Rank approved listings with MAUT using the student's saved preferences."""
+    email = request.args.get('email', '').strip().lower()
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+
+    prefs = {
+        'budget_min': 0, 'budget_max': 5000, 'preferred_barangay': '',
+        'room_type': '', 'amenities': '', 'occupants': 1,
+        'weight_price': 0.30, 'weight_location': 0.25, 'weight_amenities': 0.20,
+        'weight_availability': 0.15, 'weight_rating': 0.10
+    }
+    if email:
+        cursor.execute('SELECT * FROM student_preferences WHERE user_email = ?', (email,))
+        row = cursor.fetchone()
+        if row:
+            prefs = {
+                'budget_min': row[1], 'budget_max': row[2], 'preferred_barangay': row[3] or '',
+                'room_type': row[4] or '', 'amenities': row[5] or '', 'occupants': row[6] or 1,
+                'weight_price': row[7], 'weight_location': row[8], 'weight_amenities': row[9],
+                'weight_availability': row[10], 'weight_rating': row[11]
+            }
+
+    # Reuse the public property list builder logic lightly
+    cursor.execute('''
+        SELECT p.id, p.owner_email, u.fullname, p.name, p.type, p.address, p.barangay,
+               p.raw_rent, p.rent, p.total_rooms, p.avail_rooms, p.occupied,
+               p.description, p.rules, p.amenities, p.image, p.lat, p.lon, p.images,
+               COALESCE(p.verified, 0),
+               rv.avg_rating, rv.review_count, rv.rec_count
+        FROM properties p
+        LEFT JOIN users u ON p.owner_email = u.email
+        LEFT JOIN (
+            SELECT property_id, AVG(rating) AS avg_rating, COUNT(*) AS review_count, SUM(recommend) AS rec_count
+            FROM reviews GROUP BY property_id
+        ) rv ON rv.property_id = p.id
+        WHERE p.status = 'approved'
+        ORDER BY p.id DESC
+    ''')
+    rows = cursor.fetchall()
+    ranked = []
+    for r in rows:
+        rooms = get_rooms_for_property(cursor, r[0])
+        active_rooms = [rm for rm in rooms if rm['status'] != 'unavailable']
+        vacant = sum(1 for rm in rooms if rm.get('selectable'))
+        prop = {
+            'id': r[0], 'owner_email': r[1], 'owner_name': r[2] or 'Property Owner',
+            'name': r[3], 'type': r[4], 'address': r[5], 'barangay': r[6],
+            'rawRent': r[7], 'rent': r[8],
+            'totalRooms': str(len(active_rooms) or r[9] or 0),
+            'availRooms': str(vacant if rooms else r[10]),
+            'occupied': r[11], 'desc': r[12], 'rules': r[13],
+            'amenities': r[14].split(',') if r[14] else [],
+            'image': r[15], 'lat': r[16], 'lon': r[17],
+            'images': json.loads(r[18]) if r[18] else ([r[15]] if r[15] else []),
+            'verified': bool(r[19]),
+            'rating': round(r[20], 1) if r[20] else 0,
+            'reviewCount': r[21] or 0,
+            'recommendPct': round(100 * (r[22] or 0) / r[21]) if r[21] else 0,
+            'rooms': rooms
+        }
+        score, breakdown = score_property_maut(prop, prefs)
+        prop['matchScore'] = score
+        prop['matchBreakdown'] = breakdown
+        ranked.append(prop)
+    conn.close()
+    ranked.sort(key=lambda p: (p['matchScore'], p.get('verified') and 1 or 0), reverse=True)
+    return jsonify({'success': True, 'preferences': prefs, 'properties': ranked})
+
+# ── ROOM INVENTORY ────────────────────────────────────────
+@app.route('/api/properties/<int:prop_id>/rooms', methods=['GET'])
+def get_property_rooms(prop_id):
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('SELECT id FROM properties WHERE id = ?', (prop_id,))
+    if not cursor.fetchone():
+        conn.close()
+        return jsonify({'success': False, 'message': 'Property not found.'}), 404
+    cursor.execute('SELECT total_rooms FROM properties WHERE id = ?', (prop_id,))
+    total = cursor.fetchone()[0]
+    sync_property_rooms(cursor, prop_id, total)
+    rooms = get_rooms_for_property(cursor, prop_id)
+    refresh_property_availability(cursor, prop_id)
+    conn.commit()
+    conn.close()
+    return jsonify({'success': True, 'rooms': rooms})
+
+@app.route('/api/properties/<int:prop_id>/rooms/<int:room_id>', methods=['POST'])
+def update_room_status(prop_id, room_id):
+    data = request.json or {}
+    owner_email = (data.get('owner_email') or '').strip().lower()
+    new_status = (data.get('status') or '').strip().lower()
+    if new_status not in ('vacant', 'reserved', 'occupied', 'unavailable'):
+        return jsonify({'success': False, 'message': 'Invalid room status.'}), 400
+
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('SELECT owner_email FROM properties WHERE id = ?', (prop_id,))
+    row = cursor.fetchone()
+    if not row:
+        conn.close()
+        return jsonify({'success': False, 'message': 'Property not found.'}), 404
+    if owner_email and row[0].strip().lower() != owner_email:
+        conn.close()
+        return jsonify({'success': False, 'message': 'Only the owner can update rooms.'}), 403
+
+    cursor.execute(
+        'UPDATE rooms SET status = ? WHERE id = ? AND property_id = ?',
+        (new_status, room_id, prop_id)
+    )
+    if not cursor.rowcount:
+        conn.close()
+        return jsonify({'success': False, 'message': 'Room not found.'}), 404
+    refresh_property_availability(cursor, prop_id)
+    rooms = get_rooms_for_property(cursor, prop_id)
+    conn.commit()
+    conn.close()
+    return jsonify({'success': True, 'message': f'Room marked {new_status}.', 'rooms': rooms})
+
+# ── LISTING REPORTS ───────────────────────────────────────
+@app.route('/api/reports', methods=['POST'])
+def create_listing_report():
+    data = request.json or {}
+    property_id = data.get('property_id')
+    reporter_email = (data.get('reporter_email') or '').strip().lower()
+    reason = (data.get('reason') or '').strip()
+    details = (data.get('details') or '').strip()
+    if not property_id or not reporter_email or not reason:
+        return jsonify({'success': False, 'message': 'Property, reporter, and reason are required.'}), 400
+
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('SELECT id FROM properties WHERE id = ?', (property_id,))
+    if not cursor.fetchone():
+        conn.close()
+        return jsonify({'success': False, 'message': 'Property not found.'}), 404
+    cursor.execute('''
+        INSERT INTO listing_reports (property_id, reporter_email, reason, details, status)
+        VALUES (?, ?, ?, ?, 'open')
+    ''', (property_id, reporter_email, reason, details))
+    conn.commit()
+    conn.close()
+    return jsonify({'success': True, 'message': 'Report submitted. An admin will review it.'})
+
+@app.route('/api/admin/reports', methods=['GET'])
+@admin_required
+def admin_get_reports():
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT r.id, r.property_id, p.name, r.reporter_email, r.reason, r.details, r.status, r.created_at
+        FROM listing_reports r
+        LEFT JOIN properties p ON p.id = r.property_id
+        ORDER BY CASE r.status WHEN 'open' THEN 0 ELSE 1 END, r.id DESC
+    ''')
+    rows = cursor.fetchall()
+    conn.close()
+    return jsonify({'success': True, 'reports': [
+        {
+            'id': r[0], 'property_id': r[1], 'property_name': r[2] or 'Unknown',
+            'reporter_email': r[3], 'reason': r[4], 'details': r[5] or '',
+            'status': r[6], 'created_at': r[7]
+        } for r in rows
+    ]})
+
+@app.route('/api/admin/reports/<int:report_id>', methods=['POST'])
+@admin_required
+def admin_resolve_report(report_id):
+    data = request.json or {}
+    status = (data.get('status') or 'resolved').strip().lower()
+    if status not in ('open', 'resolved', 'dismissed'):
+        return jsonify({'success': False, 'message': 'Invalid status.'}), 400
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('UPDATE listing_reports SET status = ? WHERE id = ?', (status, report_id))
+    changed = cursor.rowcount
+    conn.commit()
+    conn.close()
+    if not changed:
+        return jsonify({'success': False, 'message': 'Report not found.'}), 404
+    return jsonify({'success': True, 'message': f'Report marked {status}.'})
 
 # ── MESSAGING APIs ────────────────────────────────────────
 @app.route('/api/messages', methods=['POST'])
